@@ -3,9 +3,20 @@ layout: page
 permalink: /gpm/
 ---
 
+
 I'm guessing that most people are pretty comfortable with the concept of uncorrelated Gaussian noise. It's the most frequently assumed noise. Even if you don't realise it, you're probably assuming Gaussian noise.
 
 Quick check: Are you using a chi-squared test to fit your data? Yes? Well there you go.
+
+- [Co-variate Gaussian Noise](#covariatenoise)
+  - [Covariate Gaussian Noise in Python](#covarpython)
+- [Validation sets, Cross-validation, hyperparameter tuning](#val)
+- [Pros/Cons of Nearest Neighbor](#procon)
+- [Summary](#summary)
+- [Summary: Applying kNN in practice](#summaryapply)
+- [Further Reading](#reading)
+
+<a name='covariatenoise'></a>
 
 ### Co-variate Gaussian Noise
 
@@ -25,6 +36,10 @@ which in the case of a diagonal covariance matrix reduces to
 <p style="text-align:center;">$latex y_i = \mu_i + N(0, \sigma^2_i)$.</p>
 However, if we start to add in non-zero values to the other elements of the covariance matrix then this will no longer be the case and the <em>y</em>-value at one position will affect the <em>y</em>-value at another.
 
+<a name='reading'></a>
+
+<h4>Reading Material</h4>
+
 This is a very brief explanation of covariate Gaussian noise. For a better and more detailed description, I like these references:
 <ul>
 	<li><a href="http://www.gaussianprocess.org" target="_blank" rel="noopener">Gaussian Processes for Machine Learning</a>, Carl Edward Rasmussen and Chris Williams, the MIT Press</li>
@@ -32,20 +47,24 @@ This is a very brief explanation of covariate Gaussian noise. For a better and m
 </ul>
 The second of these has a particularly nice figure showing the effect of covariate Gaussian noise. It looks like this:
 
-[caption id="attachment_1902" align="aligncenter" width="469"]<img class="alignnone  wp-image-1902" src="https://allofyourbases.files.wordpress.com/2017/08/roberts_fig5.png" alt="roberts_fig5" width="469" height="176" /> Figure 5 from Roberts et al. 2012[/caption]
+<img class="alignnone  wp-image-1902" src="https://allofyourbases.files.wordpress.com/2017/08/roberts_fig5.png" alt="roberts_fig5" width="469" height="176" /> Figure 5 from Roberts et al. 2012
 
 Here I'm going to explain how to recreate this figure using Python.
-<h3>Covariate Gaussian Noise in Python</h3>
+
+<a name='covarpython'></a>
+
+<h4>Covariate Gaussian Noise in Python</h4>
+
 To simulate the effect of co-variate Gaussian noise in Python we can use the <a href="http://www.numpy.org/" target="_blank" rel="noopener">numpy</a> library function <code>multivariate_normal(mean,K)</code>.
 
 <em>Note: the Normal distribution and the Gaussian distribution are the same thing.</em>
 
 First off, let's load some libraries:
 
-[code language="python" gutter="false" highlight="1-100"]
+<code python>
 import numpy as np   # the numpy library
 import pylab as pl   # the matplotlib for plotting
-[/code]
+</code>
 
 then we can call the <code>multivariate_normal(mean,K)</code> function:
 
