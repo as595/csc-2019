@@ -259,16 +259,13 @@ x_test = x[np.where(condition==0.0)]
 Next we can use those 5 training data points to make a <strong>covariance matrix</strong> using the function we defined <a href="http://allofyourbases.com/2017/08/21/gaussian-processes-in-python/" target="_blank" rel="noopener">in the previous post</a>:
 
 ```python
-
 # define the covariance matrix:
 K = make_K(x_train,h,lam)
-
 ```
 
 To calculate the posterior mean and variance we're going to need to calculate the <strong>inverse</strong> of our covariance matrix. For a small matrix like we have here, we can do this using the numpy library linear algebra functionality:
 
 ```python
-
 # take the inverse:
 iK = np.linalg.inv(K)
 ```
@@ -278,7 +275,6 @@ However, <em>be careful inverting larger matrices in Python</em>. The numerical 
 And now we're ready to calculate the posterior mean and variance (or standard deviation, which is the square-root of the variance):
 
 ```python
-
 m=[];sig=[]
 for xx in x_test:
 
@@ -294,13 +290,11 @@ for xx in x_test:
 
     m.append(m_xx)
     sig.append(np.sqrt(np.abs(sig_xx))) # note sqrt to get stdev from variance
-
 ```
 
 Let's see how we did. Here I'm going to plot the training data points, as well as the original realisation (dashed line) that we drew them from, on the <strong>left</strong>. On the <strong>right</strong> I'm going to plot the same data plus the predicted posterior mean (solid line) and the standard deviation (shaded area).
 
 ```python
-
 # m and sig are currently lists - turn them into numpy arrays:
 m=np.array(m);sig=np.array(sig)
 
@@ -325,7 +319,6 @@ pl.scatter(x_train,y_train)  # plot the training points
 
 # display the plot:
 pl.show()
-
 ```
 
 <div class="fig figcenter fighighlight">
