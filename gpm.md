@@ -177,7 +177,11 @@ for i in range(0,3):
 pl.show()
 ```
 
-<img class=" size-full wp-image-1878 aligncenter" src="https://allofyourbases.files.wordpress.com/2017/08/figure_1.png" alt="figure_1" width="873" height="670" />
+<div class="fig figcenter fighighlight">
+  <img src="https://allofyourbases.files.wordpress.com/2017/08/figure_1.png">
+  <div class="figcaption"></div>
+</div>
+
 
 The top row of plots is showing the covariance matrix for each of the three different kernel widths. The bottom row is showing five realisations of data <em>y</em>-values that correspond to each of the covariance matrices. Remember that all of these realisations have <strong>zero mean</strong> so the only contribution to the <em>y</em>-values is (covariate) Gaussian noise.
 
