@@ -142,7 +142,7 @@ K = make_K(x,h,lam)
 y = np.random.multivariate_normal(np.zeros(len(x)),K)
 ```
 
-<h3>Putting It All Together</h3>
+<h4>Putting It All Together</h4>
 We can expand this to look at what happens when we vary the hyper-parameters of the covariance kernel, in particular the width, $latex \lambda $:
 
 ```python
@@ -230,7 +230,10 @@ In <a href="http://allofyourbases.com/2017/08/21/gaussian-processes-in-python/" 
 
 We ended up with some covariate data that looked like this:
 
-<img class="  wp-image-1878 aligncenter" src="https://allofyourbases.files.wordpress.com/2017/08/figure_1.png" alt="figure_1" width="502" height="385" />
+<div class="fig figcenter fighighlight">
+  <img src="https://allofyourbases.files.wordpress.com/2017/08/figure_1.png">
+  <div class="figcaption"></div>
+</div>
 
 If we take the final realization from these data, which has $latex \lambda = 5$, and select 5 points from it as our <strong>training data</strong> then we can calculate <strong>the posterior mean and variance</strong> at any other point based on those five training points.
 <p style="text-align:center;">[<em>Note: This code continues directly on from the code <a href="http://allofyourbases.com/2017/08/21/gaussian-processes-in-python/" target="_blank" rel="noopener">in the previous post</a></em>]</p>
@@ -325,7 +328,10 @@ pl.show()
 
 ```
 
-<img class="  wp-image-1976 aligncenter" src="https://allofyourbases.files.wordpress.com/2017/08/gpm1.png" alt="GPM1.png" width="491" height="368" />
+<div class="fig figcenter fighighlight">
+  <img src="https://allofyourbases.files.wordpress.com/2017/08/gpm1.png" alt="GPM1.png">
+  <div class="figcaption"></div>
+</div>
 
 We can see that the prediction is pretty good. It's not exactly the same as the original realisation, but then again it would be pretty surprising if we could predict things perfectly based on incomplete data.
 
