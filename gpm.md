@@ -6,11 +6,15 @@ permalink: /gpm/
 I'm guessing that most people are pretty comfortable with the concept of uncorrelated Gaussian noise. It's the most frequently assumed noise. Even if you don't realise it, you're probably assuming Gaussian noise.
 
 Quick check: Are you using a chi-squared test to fit your data? Yes? Well there you go.
-<h3>Co-variate Gaussian Noise</h3>
-Here I'm going to talk about <strong>multi-variate</strong>, or <strong>co-variate</strong>, Gaussian noise. Co-variate Gaussian noise is the situation where <em>the value of one data point affects the value of another</em>. This kind of <em>co-</em>variance, i.e. variance <em>between</em> things, is usually expressed as a <strong>covariance matrix</strong>.
 
-If you have <strong>N</strong> data points, then your covariance matrix will have a size: <strong>N x N</strong>. The matrix is normally denoted <strong>K</strong> (or sometimes $latex \mathbf{\Sigma}$) .
+### Co-variate Gaussian Noise
+
+Here I'm going to talk about **multi-variate**, or **co-variate**, Gaussian noise. Co-variate Gaussian noise is the situation where *the value of one data point affects the value of another*. This kind of *co-*variance, i.e. variance *between* things, is usually expressed as a **covariance matrix**.
+
+If you have **N** data points, then your covariance matrix will have a size: **N x N**. The matrix is normally denoted **K** (or sometimes $latex \mathbf{\Sigma}$).
+
 <p style="text-align:center;">$latex \mathbf{K(x,x)} = \left( \begin{array}{cccc} k(x_1,x_1) & k(x_1,x_2) & ... & k(x_1,x_n) \\ k(x_2,x_1) & k(x_2,x_2) & ... & k(x_2,x_n) \\ \vdots & \vdots & \vdots & \vdots \\ k(x_n,x_1) & k(x_n,x_2) & ... & k(x_n,x_n)  \end{array} \right) $</p>
+
 <strong>Uncorrelated</strong>, or <em>independent</em>, Gaussian noise is a special case of the covariance matrix where only the diagonal elements have a non-zero value, i.e.
 <p style="text-align:center;">$latex \mathbf{K(x,x)} = \left( \begin{array}{cccc} k(x_1,x_1) & 0 & ... & 0 \\ 0 & k(x_2,x_2) & ... & 0 \\ \vdots & \vdots & \vdots & \vdots \\ 0 & 0 & ... & k(x_n,x_n)  \end{array} \right) $</p>
 The value of each diagonal element corresponds to the variance of a particular data point, e.g. a data point at position $latex x_1$ with a mean value $latex \mu_1 $ would have a variance $latex k(x_1,x_1) = \sigma_1^2 $ ; a data point at position $latex x_2$ with a mean value $latex \mu_2 $ would have a variance $latex k(x_2,x_2) = \sigma_2^2 $ , and so on and so forth.
