@@ -338,3 +338,338 @@ We can see that the prediction is pretty good. It's not exactly the same as the 
 The shaded regions of uncertainty are also useful because they tell us how much accuracy we should expect in any given range of positions. Note that the further away from our training data we go, the larger the uncertainty becomes. On the right hand side it explodes because we've run out of training data points to constrain the posterior mean.
 
 Statistically we should not expect our original realisation to lie within the shaded region all the time: it's a one sigma limit, i.e. we should expect the values of the original realisation to lie within one sigma of the posterior mean ~68% of the time.
+
+
+One of the most well known examples of using Gaussian Process Modelling for forward prediction is the application described in <a href="http://www.gaussianprocess.org/gpml/chapters/RW5.pdf" target="_blank" rel="noopener">Rasmussen & Williams</a>, which shows the prediction for the future of atmospheric CO2 levels.
+
+[caption id="attachment_2190" align="alignnone" width="655"]<img class="alignnone size-full wp-image-2190" src="https://allofyourbases.files.wordpress.com/2017/08/rw5pt6.png" alt="RW5pt6" width="655" height="262" /> Figure 5.6 from Rasmussen & Williams[/caption]
+
+When the book was written, the prediction showed the increase in CO2 concentration continuing at roughly the same rate. However, things haven't gone so well for CO2 concentrations since then.
+
+[caption id="attachment_2182" align="alignnone" width="1162"]<img class="alignnone size-full wp-image-2182" src="https://allofyourbases.files.wordpress.com/2017/08/news3.png" alt="news3" width="1162" height="381" /> https://www.theguardian.com/environment/2016/sep/28/the-world-passes-400ppm-carbon-dioxide-threshold-permanently[/caption]
+
+In 2016, the carbon dioxide content of the Earth’s atmosphere hit a value of 400 parts per million. Even faster than the R&W model predicted.
+
+Here I'm going to step through how to repeat R&W's CO2 prediction in Python.
+<p style="text-align:center;"><em>[Note: this post follows on from <a href="http://allofyourbases.com/2017/09/04/gaussian-process-modelling-in-python/" target="_blank">a previous post</a> and <a href="http://allofyourbases.com/2017/08/21/gaussian-processes-in-python/" target="_blank" rel="noopener">an even more previous post</a>.]</em></p>
+
+<h3>GPM with George</h3>
+
+Some basic libraries...
+
+```python
+import numpy as np
+import pylab as pl
+import scipy.optimize as op
+```
+
+In a previous post on Gaussian Process Modelling we coded up <strong>covariance kernels</strong> and a <strong>covariance matrix</strong> from scratch. This time we're going to need more than one kernel. We could write a little library that defines a whole load of different covariance kernels... but in fact <a href="http://dan.iel.fm/george/" target="_blank" rel="noopener">somebody has already done it for us</a> :-)
+
+The <a href="http://dan.iel.fm/george/" target="_blank" rel="noopener"><code>george</code> Gaussian Process Modelling library</a> is pip installable:
+
+```python
+pip install george
+```
+
+We need to import the library and the covariance kernels:
+
+```python
+import george
+from george import kernels
+```
+
+We're also going to need some data. I downloaded these data from the <a href="https://www.esrl.noaa.gov/gmd/ccgg/trends/data.html" target="_blank" rel="noopener">NOAA website</a>.
+
+There is also a reduced version (up to 2001) of this dataset available directly through the <a href="http://www.statsmodels.org/dev/datasets/generated/co2.html" target="_blank" rel="noopener">Python Statsmodels Datasets</a> package.
+
+```python
+# this is a function to read the Mauna Loa data from file
+def read_co2(filename):
+
+    co2file = open(filename,'r')
+
+    time=[];co2=[]
+    while True:
+        line = co2file.readline()
+        if not line: break
+
+        items = line.split()
+
+        if (items[0]!='#') and (items[3]!='-99.99'):
+
+            time.append(float(items[2]))
+            co2.append(float(items[3]))
+
+    time=np.array(time)
+    co2=np.array(co2)
+
+    return time,co2
+
+t,y = read_co2("mauna_loa.dat")
+```
+
+I'm going to pick out the data up to 2003 to use as <em>training data points</em>. Then I'm going to use the training data to <strong>predict the future</strong> at <em>test data points</em> from 2003 to 2025.
+
+First off, here are the training data:
+
+```python
+pl.subplot(111)
+pl.plot(t[np.where(t<2003.)],y[np.where(t<2003.)],ls=':')
+pl.ylabel(r"CO$_2$ concentration, ppm", fontsize=20)
+pl.xlabel("year", fontsize=20)
+pl.title(r"Mauna Loa CO$_2$ data: 1958 to 2003")
+pl.axis([1958.,2025.,310.,420.])
+pl.grid()
+pl.show()
+```
+
+<img class="  wp-image-2090 aligncenter" src="https://allofyourbases.files.wordpress.com/2017/08/co2_data_2005.png" alt="co2_data_2005" width="621" height="243" />
+
+I'm going to split out my training data as a separate array:
+
+```python
+y_to_2003 = y[np.where(t<2003.)]
+t_to_2003 = t[np.where(t<2003.)]
+```
+
+To select appropriate kernels to describe the behaviour of the data in the covariance matrix we need to look at the trends that are present.
+
+<span style="text-decoration:underline;">Firstly</span>, there is a long term increase:
+
+<img class="alignnone size-full wp-image-2126" src="https://allofyourbases.files.wordpress.com/2017/08/co2_data_t1.png" alt="co2_data_t1" width="1506" height="590" />
+
+We could include a <strong>mean function</strong> to model this long term rise, but we can also just use a covariance kernel with a large width:
+<p style="text-align:center;">$latex
+k(x_i,x_j) = h^2 \exp{ \left( \frac{-(x_i - x_j)^2}{\lambda^2} \right)}
+$</p>
+
+```python
+# Squared exponential kernel
+# h = 66; lambda = 67
+k1 = 66.0**2 * kernels.ExpSquaredKernel(67.0**2)
+```
+
+Note that I'm including the values of the <strong>hyper-parameters</strong> for each kernel in the code as they are defined in R&W.
+
+<span style="text-decoration:underline;">Secondly</span>, there is that periodic behaviour. So we need a periodic kernel.
+
+<img class="alignnone size-full wp-image-2128" src="https://allofyourbases.files.wordpress.com/2017/08/co2_data_t2.png" alt="co2_data_t2" width="1506" height="590" />
+
+However, we don't know if the behaviour is exactly periodic, so we should allow for some decay away from exact periodicity.
+<p style="text-align:center;">$latex
+k(x_i,x_j) = h^2 \exp{ \left( - \frac{(x_i - x_j)^2}{\lambda^2} - \frac{2}{\gamma^2}\sin^2(\frac{\pi (x_i - x_j)}{P}) \right)}
+$</p>
+
+```python
+# periodic covariance kernel with exponential component to
+# allow decay away from periodicity:
+# h = 2.4; lambda = 90; gamma = 1.3; P = 1
+k2 = 2.4**2 * kernels.ExpSquaredKernel(90**2) * kernels.ExpSine2Kernel(2.0 / 1.3**2, 1.0)
+```
+
+<span style="text-decoration:underline;">Thirdly</span>, there are the medium term irregularities in the long term behaviour. Technically I believe these are known as a <em>wibble</em>.
+<p style="text-align:center;">$latex
+k(x_i,x_j) = h^2 \left( 1 + \frac{(x_i - x_j)^2}{2\alpha\beta^2} \right)^{-\alpha}
+$</p>
+
+```python
+# rational quadratic kernel for medium term irregularities.
+# h = 0.66; alpha = 0.78; beta = 1.2
+k3 = 0.66**2 * kernels.RationalQuadraticKernel(0.78, 1.2**2)
+```
+
+And... <span style="text-decoration:underline;">finally</span>, there is the noise. These are empirical data and so they will always have some noise component due to the measurement equipment which can introduce both uncorrelated and short range correlated noise contributions:
+<p style="text-align:center;">$latex
+k(x_i,x_j) = h^2 \exp{ \left( \frac{-(x_i - x_j)^2}{\lambda^2} \right)} + \sigma^2 \delta_{\ij}
+$</p>
+
+```python
+# noise kernel: includes correlated noise & uncorrelated noise
+# h = 0.18; lambda = 1.6; sigma = 0.19
+k4 = 0.18**2 * kernels.ExpSquaredKernel(1.6**2) + kernels.WhiteKernel(0.19)
+```
+
+Let’s put all these components together to make our final combined kernel:
+
+```python
+kernel = k1 + k2 + k3 + k4
+```
+
+Now we need to feed our combined kernel to the <code>george</code> library:
+
+```python
+gp = george.GP(kernel, mean=0.0)
+```
+
+Then we compute the covariance matrix:
+
+```python
+gp.compute(t_to_2003)
+```
+
+and... that's it.
+<h3>Predicting the Future</h3>
+We can now predict the <strong>posterior mean and variance</strong> at all our test data points:
+
+```python
+# range of times for prediction:
+x = np.linspace(max(t_to_2003), 2025, 2000)
+
+# calculate expectation and variance at each point:
+mu, cov = gp.predict(y_to_2003, x)
+std = np.sqrt(np.diag(cov))
+```
+
+So how does it look?
+
+```python
+ax = pl.subplot(111)
+
+# plot the original values
+pl.plot(t_to_2003,y_to_2003,ls=':') 
+
+# shade in the area inside a one standard deviation bound:
+ax.fill_between(x,mu-std,mu+std,facecolor='lightgrey', lw=0, interpolate=True)
+
+pl.ylabel(r"CO$_2$ concentration, ppm")
+pl.xlabel("year")
+pl.title(r"Mauna Loa CO$_2$ data - Initial Prediction")
+pl.axis([1958.,2025.,310.,420.])
+pl.grid()
+
+# display the figure:
+pl.show()
+```
+
+<img class="  wp-image-2290 aligncenter" src="https://allofyourbases.files.wordpress.com/2017/08/co2_pred_1.png" alt="co2_pred_1.png" width="642" height="256" />
+<h3>Optimizing the Hyper-parameters</h3>
+But... what if the values of the hyper-parameters from R&W weren't exactly right? We should probably optimise them for the data. We can do that in simple cases using the optimization function in the <a href="https://www.scipy.org/scipylib/index.html" target="_blank" rel="noopener"><code>scipy</code> library</a>.
+
+To use the <code>scipy</code> library optimization function we need to provide
+
+(1) some objective function to optimize, and
+(2) the gradient of that function.
+
+I'm going to define the objective function for the optimization as a negative log-likelihood. We could write this function ourselves, but in fact <a href="http://dan.iel.fm/george/" target="_blank" rel="noopener"><code>george</code></a> has a built in log-likelihood that we can simply call directly.
+
+The log-likelihood is computed as:
+<p style="text-align:center;">$latex
+\log \mathcal{L} \propto (\mathbf{y} - X^T \mathbf{x})^T K^{-1}(\mathbf{y} - X^T \mathbf{x})
+$</p>
+where <em>y</em> is the variable and <em>x</em> are the points at which it is measured; <em>K</em> is the covariance matrix and <em>X</em> is the operator that maps <em>x</em> onto <em>y</em>.
+
+```python
+def nll(p):
+    # Update the kernel parameters and compute the likelihood.
+    gp.kernel[:] = p
+    ll = gp.lnlikelihood(y_to_2003, quiet=True)
+
+    # The scipy optimizer doesn't play well with infinities.
+    return -ll if np.isfinite(ll) else 1e25
+```
+
+```python
+def grad_nll(p):
+    # Update the kernel parameters and compute the likelihood gradient.
+    gp.kernel[:] = p
+    gll = gp.grad_lnlikelihood(y_to_2003, quiet=True)
+    return -gll
+```
+
+```python
+gp.compute(t_to_2003)
+```
+
+We can then run the optimization routine:
+
+```python
+# initial guess at parameters (see above):
+p0 = gp.kernel.vector
+
+# if you want to view your initial guess values uncomment the line below
+# print p0
+
+# run optimization:
+results = op.minimize(nll, p0, jac=grad_nll)
+
+```
+
+To use the results of the optimization, we then need to update the kernel with the results of the optimization:
+
+```python
+gp.kernel[:] = results.x
+```
+
+Re-run the prediction with the updated parameters:
+
+```python
+# range of times for prediction:
+x = np.linspace(max(t_to_2003), 2025, 2000)
+
+# calculate expectation and variance at each point:
+mu, cov = gp.predict(y_to_2003, x)
+std = np.sqrt(np.diag(cov))
+```
+
+And see what we get:
+
+```python
+ax = pl.subplot(111)
+
+# plot the original values
+pl.plot(t_to_2003,y_to_2003,ls=':') 
+
+# shade in the area inside a one standard deviation bound:
+ax.fill_between(x,mu-std,mu+std,facecolor='lightgrey', lw=0, interpolate=True)
+pl.title("Predicted")
+
+pl.ylabel(r"CO$_2$ concentration, ppm")
+pl.xlabel("year")
+pl.title(r"Mauna Loa CO$_2$ data - Optimised Prediction")
+pl.axis([1957.,2025.,310.,420.])
+pl.grid()
+
+# display the figure:
+pl.show()
+```
+
+<img class="  wp-image-2110 aligncenter" src="https://allofyourbases.files.wordpress.com/2017/08/co2_pred_2.png" alt="co2_pred_2" width="615" height="266" />
+
+Well, the original parameters were basically optimal so things haven't changed much.
+
+Let's now compare the prediction with the actual measured data from Mauna Kea after 2003:
+
+```python
+ax = pl.subplot(111)
+
+# plot the training values
+pl.plot(t_to_2003,y_to_2003,ls=':',c='b') 
+
+# shade in the area inside a one standard deviation bound:
+ax.fill_between(x,mu-std,mu+std,facecolor='lightgrey', lw=0, interpolate=True)
+
+# plot the full dataset
+pl.plot(t[np.where(t>2003)],y[np.where(t>2003)],ls='-',c='r') 
+
+pl.ylabel(r"CO$_2$ concentration, ppm")
+pl.xlabel("year")
+pl.title(r"Mauna Loa CO$_2$ data - Comparison")
+pl.axis([1958.,2025.,310.,420.])
+pl.grid()
+
+# display the figure:
+pl.show()
+```
+
+<img class="  wp-image-2114 aligncenter" src="https://allofyourbases.files.wordpress.com/2017/08/co2_comp.png" alt="co2_comp" width="576" height="270" />
+
+It's not quite as much of a difference from the prediction as the news seems to think:
+
+<img class=" size-full wp-image-2156 aligncenter" src="https://allofyourbases.files.wordpress.com/2017/08/news4.png" alt="news4" width="466" height="382" />
+
+But it does tell us that our model is not perfect and that perhaps:
+
+(1) Accelerated behaviour has appeared in the data after 2003; or
+(2) We need another kernel to account for acceleration in the increase; or
+(3) Perhaps we should introduce a non-zero mean [my personal guess].
+
