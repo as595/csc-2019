@@ -13,7 +13,7 @@ Here I'm going to talk about **multi-variate**, or **co-variate**, Gaussian nois
 
 If you have **N** data points, then your covariance matrix will have a size: **N x N**. The matrix is normally denoted **K** (or sometimes $latex \mathbf{\Sigma}$).
 
-<p style="text-align:center;">$latex \mathbf{K(x,x)} = \left( \begin{array}{cccc} k(x_1,x_1) & k(x_1,x_2) & ... & k(x_1,x_n) \\ k(x_2,x_1) & k(x_2,x_2) & ... & k(x_2,x_n) \\ \vdots & \vdots & \vdots & \vdots \\ k(x_n,x_1) & k(x_n,x_2) & ... & k(x_n,x_n)  \end{array} \right) $</p>
+\\[ \mathbf{K(x,x)} = \left( \begin{array}{cccc} k(x_1,x_1) & k(x_1,x_2) & ... & k(x_1,x_n) \\ k(x_2,x_1) & k(x_2,x_2) & ... & k(x_2,x_n) \\ \vdots & \vdots & \vdots & \vdots \\ k(x_n,x_1) & k(x_n,x_2) & ... & k(x_n,x_n)  \end{array} \right) \\]
 
 <strong>Uncorrelated</strong>, or <em>independent</em>, Gaussian noise is a special case of the covariance matrix where only the diagonal elements have a non-zero value, i.e.
 <p style="text-align:center;">$latex \mathbf{K(x,x)} = \left( \begin{array}{cccc} k(x_1,x_1) & 0 & ... & 0 \\ 0 & k(x_2,x_2) & ... & 0 \\ \vdots & \vdots & \vdots & \vdots \\ 0 & 0 & ... & k(x_n,x_n)  \end{array} \right) $</p>
