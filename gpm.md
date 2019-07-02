@@ -10,7 +10,8 @@ Quick check: Are you using a chi-squared test to fit your data? Yes? Well there 
 
 - [Co-variate Gaussian Noise](#covariatenoise)
   - [Covariate Gaussian Noise in Python](#covarpython)
-- [Validation sets, Cross-validation, hyperparameter tuning](#val)
+- [Gaussian Process Modelling](#gpm)
+  - [Gaussian Process Modelling in Python](#gpmpython)
 - [Pros/Cons of Nearest Neighbor](#procon)
 - [Summary](#summary)
 - [Summary: Applying kNN in practice](#summaryapply)
@@ -186,3 +187,148 @@ pl.show()
 The top row of plots is showing the covariance matrix for each of the three different kernel widths. The bottom row is showing five realisations of data <em>y</em>-values that correspond to each of the covariance matrices. Remember that all of these realisations have <strong>zero mean</strong> so the only contribution to the <em>y</em>-values is (covariate) Gaussian noise.
 
 The narrower the covariance kernel, the more diagonal the covariance matrix becomes and the more like independent noise the <em>y</em>-values appear.
+
+<a name='gpm'></a>
+
+<h3>Gaussian Process Modelling</h3>
+
+We can invert the probability statement
+<p style="text-align:center;">$latex p(y_i) = N (\mu_i, K_{ij})$</p>
+to calculate the value of a hypothetical measurement at a test position, $latex x_{\ast}$, based on existing measurements, <em>y</em>, at positions, <em>x</em>.
+
+Key to this are two things:
+<ol>
+	<li>Knowing the form of the covariance <em>a priori</em>; or, having sufficient example data points to calculate it;</li>
+	<li>Having a sufficient number of example data points to provide fixed points in the function <em>a priori</em>. These are our <strong>training data</strong>.</li>
+</ol>
+Normally if you can satisfy the second of these requirements, the first follows naturally.
+
+Inverting the above probability statement allows us to write the following equations. These give us the <strong>posterior mean</strong> ($latex m_{\ast}$) and the <strong>posterior variance </strong>($latex C_{\ast}$) at that point, i.e. <strong>the value</strong> and <strong>the uncertainty on that value</strong>:
+<p style="text-align:center;">$latex
+\mathbf{m_{\ast}} = \mathbf{ K(x_{\ast},x)^T K(x,x)^{-1} y } \\
+\mathbf{C_{\ast}} = \mathbf{ K(x_{\ast},x_{\ast}) - K(x_{\ast},x)^T K(x,x)^{-1} K(x_{\ast},x) }
+$</p>
+This is more simply written as:
+<p style="text-align:center;">$latex
+\mathbf{m_{\ast}} = \mathbf{ k^T_{\ast} K^{-1} y } \\
+\mathbf{C_{\ast}} = \mathbf{ k(x_{\ast},x_{\ast}) - k^T_{\ast} K^{-1} k_{\ast} }
+$</p>
+assuming that the original measurements have zero mean. If they don't it becomes:
+<p style="text-align:center;">$latex
+\mathbf{m_{\ast}} = \mu_{\ast} + \mathbf{ k^T_{\ast} K^{-1} (y - \mu) } \\
+\mathbf{C_{\ast}} = \mathbf{ k(x_{\ast},x_{\ast}) - k^T_{\ast} K^{-1} k_{\ast} }.
+$</p>
+To understand where this comes from in more detail you can read <a href="http://www.gaussianprocess.org/gpml/chapters/RW2.pdf" target="_blank" rel="noopener">Chapter 2 of Rasmussen & Williams</a>.
+
+So, how do we actually practically do this in Python?
+
+<a name='gpmpython'></a>
+
+<h3>Prediction in Python</h3>
+
+In <a href="http://allofyourbases.com/2017/08/21/gaussian-processes-in-python/" target="_blank" rel="noopener">a previous post</a> I went through the steps for simulating covariate data in Python.
+
+We ended up with some covariate data that looked like this:
+
+<img class="  wp-image-1878 aligncenter" src="https://allofyourbases.files.wordpress.com/2017/08/figure_1.png" alt="figure_1" width="502" height="385" />
+
+If we take the final realization from these data, which has $latex \lambda = 5$, and select 5 points from it as our <strong>training data</strong> then we can calculate <strong>the posterior mean and variance</strong> at any other point based on those five training points.
+<p style="text-align:center;">[<em>Note: This code continues directly on from the code <a href="http://allofyourbases.com/2017/08/21/gaussian-processes-in-python/" target="_blank" rel="noopener">in the previous post</a></em>]</p>
+First off, let's randomly select our training points and allocate all the data positions in our realisation as either <em>training</em> or <em>test</em>:
+
+```python
+# set number of training points
+nx_training = 5
+
+# randomly select the training points:
+tmp = np.random.uniform(low=0.0, high=2000.0, size=nx_training)
+tmp = tmp.astype(int)
+
+condition = np.zeros_like(x)
+for i in tmp: condition[i] = 1.0
+
+y_train = y[np.where(condition==1.0)]
+x_train = x[np.where(condition==1.0)]
+y_test = y[np.where(condition==0.0)]
+x_test = x[np.where(condition==0.0)]
+```
+
+Next we can use those 5 training data points to make a <strong>covariance matrix</strong> using the function we defined <a href="http://allofyourbases.com/2017/08/21/gaussian-processes-in-python/" target="_blank" rel="noopener">in the previous post</a>:
+
+```python
+
+# define the covariance matrix:
+K = make_K(x_train,h,lam)
+
+```
+
+To calculate the posterior mean and variance we're going to need to calculate the <strong>inverse</strong> of our covariance matrix. For a small matrix like we have here, we can do this using the numpy library linear algebra functionality:
+
+```python
+
+# take the inverse:
+iK = np.linalg.inv(K)
+```
+
+However, <em>be careful inverting larger matrices in Python</em>. The numerical stability of the numpy linear algebra inversion is pretty poor. The scipy linear algebra inversion is better because it always uses <a href="http://www.netlib.org/blas/" target="_blank" rel="noopener">BLAS</a>/<a href="http://www.netlib.org/lapack/" target="_blank" rel="noopener">LAPACK</a>, but whenever possible <a href="https://stackoverflow.com/questions/8690456/numerically-stable-inverse-of-a-2x2-matrix" target="_blank" rel="noopener">don't invert a matrix at all</a>.
+
+And now we're ready to calculate the posterior mean and variance (or standard deviation, which is the square-root of the variance):
+
+```python
+
+m=[];sig=[]
+for xx in x_test:
+
+    # find the 1d covariance matrix:
+    K_x = cov_kernel(xx, x_train, h, lam)
+
+    # find the kernel for (xx,xx):
+    k_xx = cov_kernel(xx, xx, h, lam)
+
+    # calculate the posterior mean and variance:
+    m_xx = np.dot(K_x.T,np.dot(iK,y_train))
+    sig_xx = k_xx - np.dot(K_x.T,np.dot(iK,K_x))
+
+    m.append(m_xx)
+    sig.append(np.sqrt(np.abs(sig_xx))) # note sqrt to get stdev from variance
+
+```
+
+Let's see how we did. Here I'm going to plot the training data points, as well as the original realisation (dashed line) that we drew them from, on the <strong>left</strong>. On the <strong>right</strong> I'm going to plot the same data plus the predicted posterior mean (solid line) and the standard deviation (shaded area).
+
+```python
+
+# m and sig are currently lists - turn them into numpy arrays:
+m=np.array(m);sig=np.array(sig)
+
+# make some plots:
+
+# left-hand plot
+ax = pl.subplot(121)
+pl.scatter(x_train,y_train)  # plot the training points
+pl.plot(x,y,ls=':')        # plot the original data they were drawn from
+pl.title("Input")
+
+# right-hand plot
+ax = pl.subplot(122)
+pl.plot(x_test,m,ls='-')     # plot the predicted values
+pl.plot(x_test,y_test,ls=':') # plot the original values
+
+# shade in the area inside a one standard deviation bound:
+ax.fill_between(x_test,m-sig,m+sig,facecolor='lightgrey', lw=0, interpolate=True)
+pl.title("Predicted")
+
+pl.scatter(x_train,y_train)  # plot the training points
+
+# display the plot:
+pl.show()
+
+```
+
+<img class="  wp-image-1976 aligncenter" src="https://allofyourbases.files.wordpress.com/2017/08/gpm1.png" alt="GPM1.png" width="491" height="368" />
+
+We can see that the prediction is pretty good. It's not exactly the same as the original realisation, but then again it would be pretty surprising if we could predict things perfectly based on incomplete data.
+
+The shaded regions of uncertainty are also useful because they tell us how much accuracy we should expect in any given range of positions. Note that the further away from our training data we go, the larger the uncertainty becomes. On the right hand side it explodes because we've run out of training data points to constrain the posterior mean.
+
+Statistically we should not expect our original realisation to lie within the shaded region all the time: it's a one sigma limit, i.e. we should expect the values of the original realisation to lie within one sigma of the posterior mean ~68% of the time.
