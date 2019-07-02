@@ -61,14 +61,14 @@ To simulate the effect of co-variate Gaussian noise in Python we can use the <a 
 
 First off, let's load some libraries:
 
-<code python>
+```python
 import numpy as np   # the numpy library
 import pylab as pl   # the matplotlib for plotting
-</code>
+```
 
 then we can call the <code>multivariate_normal(mean,K)</code> function:
 
-[code language="python" gutter="false" highlight="1-100"]
+```python
 # make an array of positions
 # these are evenly spaced, but they don’t have to be
 x = np.arange(0, 20.,0.01)
@@ -76,20 +76,23 @@ x = np.arange(0, 20.,0.01)
 # use numpy to draw a sample from the multi-variate
 # normal distribution, N(0,K), at all the positions in x
 y = np.random.multivariate_normal(np.zeros(len(x)),K)
-[/code]
+```
 
 The <code>multivariate_normal</code> function takes two arguments: (1) an array of noiseless mean values for each of the x-positions, and (2) a covariance matrix for all the x-positions.
 
 In this case, I've made all of the  mean values equal to zero.
 
 At the moment we haven't specified <strong>K</strong>, so these lines of code won't work just yet. To create <strong>K</strong> we need to build a matrix of values that are calculated by the function little <strong>k</strong>. This function is known as the <strong>covariance kernel</strong> and it defines how much of an affect one data value has on another.
+
 <h3>The Covariance Kernel</h3>
+
 To start with we are going to define a <em>squared-exponential covariance kernel</em>. This has the form:
 <p style="text-align:center;">$latex k(x_n,x_m) = h^2 \exp{ \left( \frac{-(x_n - x_m)^2}{\lambda^2} \right)}
 $</p>
+
 where $latex x_n$ is the x-position of one data point and $latex x_m $ is the x-position of another. The value of the kernel is a function of how far away from each other these data points are, i.e. $latex x_n - x_m $. It also has a couple of <em>hyper-</em>parameters that govern the overall shape of the kernel: $latex h$ and $latex \lambda$. These are referred to as <strong>hyper-parameters</strong> because they don't really have any direct physical meaning so they're not bog-standard normal model parameters. Here the $latex h $ parameter controls the <em>normalisation</em> of the kernel and $latex \lambda $ controls the <em>width</em> of the kernel.
 
-[code language="python" gutter="false" highlight="1-100"]
+```python
 def cov_kernel(x1,x2,h,lam):
 
     """
@@ -98,11 +101,11 @@ def cov_kernel(x1,x2,h,lam):
 
     k12 = h**2*np.exp(-1.*(x1 - x2)**2/lam**2)
     return k12
-[/code]
+```
 
 We can then use this kernel function to fill our covariance matrix:
 
-[code language="python" gutter="false" highlight="1-100"]
+```python
 def make_K(x, h, lam):
 
     """
@@ -118,12 +121,12 @@ def make_K(x, h, lam):
             # calculate value of K for each separation:
             K[i,j] = cov_kernel(x[i],x[j],h,lam)
 
- return K
- [/code]
+     return K
+```
 
 and we can then update our earlier call to the numpy <code>multivariate_normal</code> function:
 
-[code language="python" gutter="false" highlight="1-100"]
+```python
 # make an array of 200 evenly spaced positions between 0 and 20:
 x = np.arange(0, 20.,0.01) 
 
@@ -133,11 +136,12 @@ K = make_K(x,h,lam)
 # draw samples from a co-variate Gaussian
 # distribution, N(0,K), at positions x1:
 y = np.random.multivariate_normal(np.zeros(len(x)),K)
-[/code]
+```
+
 <h3>Putting It All Together</h3>
 We can expand this to look at what happens when we vary the hyper-parameters of the covariance kernel, in particular the width, $latex \lambda $:
 
-[code language="python" gutter="false" highlight="1-100"]
+```python
 # make an array of 200 evenly spaced positions between 0 and 20:
 x = np.arange(0, 20.,0.01)
 
@@ -168,7 +172,7 @@ for i in range(0,3):
     pl.title(r"$\lambda = $"+str(lam))
 
 pl.show()
-[/code]
+```
 
 <img class=" size-full wp-image-1878 aligncenter" src="https://allofyourbases.files.wordpress.com/2017/08/figure_1.png" alt="figure_1" width="873" height="670" />
 
