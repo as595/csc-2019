@@ -1,11 +1,11 @@
 # Site settings
-title: CS231n Convolutional Neural Networks for Visual Recognition
-email: karpathy@cs.stanford.edu
-description: "Course materials and notes for Stanford class CS231n: Convolutional Neural Networks for Visual Recognition."
+title: Introduction to Machine Learning
+email: anna.scaife@manchester.ac.uk
+description: "CERN School of Computing 2019: Introduction to Machine Learning."
 baseurl: ""
 url: "http://as595.github.io"
-twitter_username: cs231n
-github_username:  cs231n
+twitter_username: radastrat
+github_username:  as595
 
 # Build settings
 markdown: kramdown
