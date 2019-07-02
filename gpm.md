@@ -47,7 +47,10 @@ This is a very brief explanation of covariate Gaussian noise. For a better and m
 </ul>
 The second of these has a particularly nice figure showing the effect of covariate Gaussian noise. It looks like this:
 
-<img class="alignnone  wp-image-1902" src="https://allofyourbases.files.wordpress.com/2017/08/roberts_fig5.png" alt="roberts_fig5" width="469" height="176" /> Figure 5 from Roberts et al. 2012
+<div class="fig figcenter fighighlight">
+  <img src="https://allofyourbases.files.wordpress.com/2017/08/roberts_fig5.png">
+  <div class="figcaption">Figure 5 from Roberts et al. 2012.</div>
+</div>
 
 Here I'm going to explain how to recreate this figure using Python.
 
