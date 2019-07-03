@@ -228,7 +228,7 @@ Let's start with the covariate data we made that looked like this:
 </div>
 
 If we take the final realization from these data, which has $latex \lambda = 5$, and select 5 points from it as our <strong>training data</strong> then we can calculate <strong>the posterior mean and variance</strong> at any other point based on those five training points.
-<p style="text-align:center;">[<em>Note: This code continues directly on from the code <a href="http://allofyourbases.com/2017/08/21/gaussian-processes-in-python/" target="_blank" rel="noopener">in the previous post</a></em>]</p>
+
 First off, let's randomly select our training points and allocate all the data positions in our realisation as either <em>training</em> or <em>test</em>:
 
 ```python
