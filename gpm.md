@@ -333,7 +333,6 @@ One of the most well known examples of using Gaussian Process Modelling for forw
 </div>
 
 Here I'm going to step through how to repeat R&W's CO2 prediction in Python.
-<p style="text-align:center;"><em>[Note: this post follows on from <a href="http://allofyourbases.com/2017/09/04/gaussian-process-modelling-in-python/" target="_blank">a previous post</a> and <a href="http://allofyourbases.com/2017/08/21/gaussian-processes-in-python/" target="_blank" rel="noopener">an even more previous post</a>.]</em></p>
 
 <h3>GPM with George</h3>
 
