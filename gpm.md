@@ -248,7 +248,7 @@ y_test = y[np.where(condition==0.0)]
 x_test = x[np.where(condition==0.0)]
 ```
 
-Next we can use those 5 training data points to make a <strong>covariance matrix</strong> using the function we defined <a href="http://allofyourbases.com/2017/08/21/gaussian-processes-in-python/" target="_blank" rel="noopener">in the previous post</a>:
+Next we can use those 5 training data points to make a <strong>covariance matrix</strong> using the function we defined [above](#kernel):
 
 ```python
 # define the covariance matrix:
