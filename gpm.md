@@ -13,7 +13,8 @@ Quick check: Are you using a chi-squared test to fit your data? Yes? Well there 
   - [The Covariance Kernel](#kernel)
 - [Gaussian Process Modelling](#gpm)
   - [Gaussian Process Modelling in Python](#gpmpython)
-- [Future Prediction using GPM](#future)
+  - [The George Python Library](#george)
+- [Forward Prediction using GPM](#future)
   - [Optimizing Hyper-parameters](#optimization)
 - [Further Reading](#reading)
 
@@ -334,7 +335,9 @@ One of the most well known examples of using Gaussian Process Modelling for forw
 
 Here I'm going to step through how to repeat R&W's CO2 prediction in Python.
 
-<h3>GPM with George</h3>
+<a name='george'></a>
+
+<h4>GPM with George</h4>
 
 Some basic libraries...
 
