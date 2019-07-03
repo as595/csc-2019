@@ -23,9 +23,12 @@ Pulsars are "pulsating radio sources", now known to be caused by rapidly rotatin
 
 You can even <a href="http://www.jb.man.ac.uk/distance/frontiers/pulsars/section1.html" target="_blank" rel="noopener noreferrer">listen to them</a> (if you really want to...)
 
-<audio controls>
-  <source src="https://allofyourbases.files.wordpress.com/2019/03/b0329.wav">
-</audio>
+<div class="fig figcenter fighighlight">
+  <audio controls>
+    <source src="https://allofyourbases.files.wordpress.com/2019/03/b0329.wav">
+  </audio>
+<div class="figcaption">An <a href="http://www.astron.nl/pulsars/animations/">artist's impression of a pulsar</a>. Image credit: <a href="http://www.astron.nl/astronomy-group/people/joeri-van-leeuwen/joeri-van-leeuwen">Joeri van Leeuwen</a>, License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-AS</a></div>
+</div>
 
 <b>PSR B0329+54</b>: This pulsar is a typical, normal pulsar, rotating with a period of 0.714519 seconds, i.e. close to 1.40 rotations/sec.
 
