@@ -27,10 +27,10 @@ You can even <a href="http://www.jb.man.ac.uk/distance/frontiers/pulsars/section
   <audio controls>
     <source src="https://allofyourbases.files.wordpress.com/2019/03/b0329.wav">
   </audio>
-<div class="figcaption">An <a href="http://www.astron.nl/pulsars/animations/">artist's impression of a pulsar</a>. Image credit: <a href="http://www.astron.nl/astronomy-group/people/joeri-van-leeuwen/joeri-van-leeuwen">Joeri van Leeuwen</a>, License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-AS</a></div>
+<div class="figcaption"><b>PSR B0329+54</b>: This pulsar is a typical, normal pulsar, rotating with a period of 0.714519 seconds, i.e. close to 1.40 rotations/sec.</div>
 </div>
 
-<b>PSR B0329+54</b>: This pulsar is a typical, normal pulsar, rotating with a period of 0.714519 seconds, i.e. close to 1.40 rotations/sec.
+
 
 Pulsars are pretty interesting objects in their own right, they are used as a probe of stellar evolution as well as being used <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=3&cad=rja&uact=8&ved=2ahUKEwiG5PXzrvXgAhXHXRUIHZeICTYQFjACegQIAxAB&url=https%3A%2F%2Fwww.sciencedirect.com%2Fscience%2Farticle%2Fpii%2FS1387647304000909&usg=AOvVaw1IKp5W-f3gu3QCjmDCpBYR" target="_blank" rel="noopener noreferrer">to test general relativity</a> due to their extremely high densities. These days they're also used to detect and map <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=3&cad=rja&uact=8&ved=2ahUKEwjWt9XfrvXgAhXdTBUIHZUDCA8QFjACegQIARAB&url=https%3A%2F%2Fwww.skatelescope.org%2Fnewsandmedia%2Foutreachandeducation%2Fskawow%2Fgravitational-wave%2F&usg=AOvVaw2tEsK4ezAUVVM4K62KVnnW" target="_blank" rel="noopener noreferrer">gravitational wave signatures</a>. However, identifying them in the data streams from radio telescopes is not trivial. There are lots of man-made sources of radio frequency interference that can mimic the signals from pulsars. Classifying candidate data samples as <em>pulsar</em> or <em>not pulsar</em> is serious business.
 
