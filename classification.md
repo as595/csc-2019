@@ -14,7 +14,7 @@ Pulsar classification is a great example of where machine learning can be used b
 
 <h3>I see dead... stars?</h3>
 
-Pulsars are "pulsating radio sources", now known to be caused by rapidly rotating neutron stars. <a href="https://en.wikipedia.org/wiki/Neutron_star" target="_blank" rel="noopener noreferrer">Neutron stars</a> are the relics of dead massive stars, they're small and extremely dense - think about something the same mass as the Sun crammed into a radius roughly the same as the <a href="https://en.wikipedia.org/wiki/M25_motorway" target="_blank" rel="noopener noreferrer">M25 motorway</a>. You can read all about them <a href="http://www.jb.man.ac.uk/distance/frontiers/pulsars/section1.html" target="_blank" rel="noopener noreferrer">here</a>.
+Pulsars are "pulsating radio sources", now known to be caused by rapidly rotating neutron stars. <a href="https://en.wikipedia.org/wiki/Neutron_star" target="_blank" rel="noopener noreferrer">Neutron stars</a> are the relics of dead massive stars, they're small and extremely dense - think about something the same mass as the Sun crammed into a radius roughly the same as the <a href="https://en.wikipedia.org/wiki/M25_motorway" target="_blank" rel="noopener noreferrer">M25 motorway around London</a>. You can read all about them <a href="http://www.jb.man.ac.uk/distance/frontiers/pulsars/section1.html" target="_blank" rel="noopener noreferrer">here</a>.
 
 <div class="fig figcenter fighighlight">
   <img src="https://allofyourbases.files.wordpress.com/2019/03/lightnew.gif">
@@ -23,7 +23,9 @@ Pulsars are "pulsating radio sources", now known to be caused by rapidly rotatin
 
 You can even <a href="http://www.jb.man.ac.uk/distance/frontiers/pulsars/section1.html" target="_blank" rel="noopener noreferrer">listen to them</a> (if you really want to...)
 
-[audio src="https://allofyourbases.files.wordpress.com/2019/03/b0329.wav"][/audio]
+<audio controls>
+  <source src="https://allofyourbases.files.wordpress.com/2019/03/b0329.wav">
+</audio>
 
 <b>PSR B0329+54</b>: This pulsar is a typical, normal pulsar, rotating with a period of 0.714519 seconds, i.e. close to 1.40 rotations/sec.
 
