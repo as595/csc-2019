@@ -1,6 +1,8 @@
 Pulsar classification is a great example of where machine learning can be used beneficially in astrophysics. It's not the most straightforward classification problem, but here I'm going to outline the basics using the scikit-learn random forest classifier. This post was inspired by <a href="http://www.scienceguyrob.com/">Rob Lyon</a>'s pulsar classification tutorials in the <a href="https://github.com/astro4dev/OAD-Data-Science-Toolkit/tree/master/Teaching%20Materials/Machine%20Learning/Supervised%20Learning/Examples/PPC">IAU OAD Data Science Toolkit</a>.
-<div style="border:1px solid red;padding:16px;text-align:center;">This post is in Python 3.</div>
+
+
 <h3>I see dead... stars?</h3>
+
 Pulsars are "pulsating radio sources", now known to be caused by rapidly rotating neutron stars. <a href="https://en.wikipedia.org/wiki/Neutron_star" target="_blank" rel="noopener noreferrer">Neutron stars</a> are the relics of dead massive stars, they're small and extremely dense - think about something the same mass as the Sun crammed into a radius roughly the same as the <a href="https://en.wikipedia.org/wiki/M25_motorway" target="_blank" rel="noopener noreferrer">M25 motorway</a>. You can read all about them <a href="http://www.jb.man.ac.uk/distance/frontiers/pulsars/section1.html" target="_blank" rel="noopener noreferrer">here</a>.
 
 [caption id="attachment_3537" align="aligncenter" width="320"]<img class="alignnone size-full wp-image-3537" src="https://allofyourbases.files.wordpress.com/2019/03/lightnew.gif" alt="lightnew" width="320" height="240" /> Enter aAn <a href="http://www.astron.nl/pulsars/animations/">artist's impression of a pulsar</a>. Image credit: <a href="http://www.astron.nl/astronomy-group/people/joeri-van-leeuwen/joeri-van-leeuwen">Joeri van Leeuwen</a>, License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-AS</a> caption[/caption]
