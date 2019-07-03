@@ -10,6 +10,7 @@ Quick check: Are you using a chi-squared test to fit your data? Yes? Well there 
 
 - [Co-variate Gaussian Noise](#covariatenoise)
   - [Covariate Gaussian Noise in Python](#covarpython)
+  - [The Covariance Kernel](#kernel)
 - [Gaussian Process Modelling](#gpm)
   - [Gaussian Process Modelling in Python](#gpmpython)
 - [Extrapolation using GPM](#future)
@@ -79,7 +80,9 @@ In this case, I've made all of the  mean values equal to zero.
 
 At the moment we haven't specified <strong>K</strong>, so these lines of code won't work just yet. To create <strong>K</strong> we need to build a matrix of values that are calculated by the function little <strong>k</strong>. This function is known as the <strong>covariance kernel</strong> and it defines how much of an affect one data value has on another.
 
-<h3>The Covariance Kernel</h3>
+<a name='kernel'></a>
+
+<h4>The Covariance Kernel</h4>
 
 To start with we are going to define a <em>squared-exponential covariance kernel</em>. This has the form:
 <p style="text-align:center;">$latex k(x_n,x_m) = h^2 \exp{ \left( \frac{-(x_n - x_m)^2}{\lambda^2} \right)}
