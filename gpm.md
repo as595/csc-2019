@@ -676,7 +676,7 @@ pl.show()
 It's not quite as much of a difference from the prediction as the news seems to think:
 
 <div class="fig figcenter fighighlight">
-  <img src=https://allofyourbases.files.wordpress.com/2017/08/news4.png">
+  <img src="https://allofyourbases.files.wordpress.com/2017/08/news4.png">
   <div class="figcaption"></div>
 </div>
 
