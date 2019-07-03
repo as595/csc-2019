@@ -217,9 +217,7 @@ So, how do we actually practically do this in Python?
 
 <h3>Prediction in Python</h3>
 
-In <a href="http://allofyourbases.com/2017/08/21/gaussian-processes-in-python/" target="_blank" rel="noopener">a previous post</a> I went through the steps for simulating covariate data in Python.
-
-We ended up with some covariate data that looked like this:
+Let's start with the covariate data we made that looked like this:
 
 <div class="fig figcenter fighighlight">
   <img src="https://allofyourbases.files.wordpress.com/2017/08/figure_1.png">
@@ -470,7 +468,7 @@ k3 = 0.66**2 * kernels.RationalQuadraticKernel(0.78, 1.2**2)
 
 And... <span style="text-decoration:underline;">finally</span>, there is the noise. These are empirical data and so they will always have some noise component due to the measurement equipment which can introduce both uncorrelated and short range correlated noise contributions:
 <p style="text-align:center;">$latex
-k(x_i,x_j) = h^2 \exp{ \left( \frac{-(x_i - x_j)^2}{\lambda^2} \right)} + \sigma^2 \delta_{\ij}
+k(x_i,x_j) = h^2 \exp{ \left( \frac{-(x_i - x_j)^2}{\lambda^2} \right)} + \sigma^2 \delta_{\rm ij}
 $</p>
 
 ```python
