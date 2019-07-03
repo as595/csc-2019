@@ -12,9 +12,8 @@ Quick check: Are you using a chi-squared test to fit your data? Yes? Well there 
   - [Covariate Gaussian Noise in Python](#covarpython)
 - [Gaussian Process Modelling](#gpm)
   - [Gaussian Process Modelling in Python](#gpmpython)
-- [Pros/Cons of Nearest Neighbor](#procon)
+- [Extrapolation using GPM](#future)
 - [Summary](#summary)
-- [Summary: Applying kNN in practice](#summaryapply)
 - [Further Reading](#reading)
 
 <a name='covariatenoise'></a>
@@ -37,15 +36,7 @@ which in the case of a diagonal covariance matrix reduces to
 <p style="text-align:center;">$latex y_i = \mu_i + N(0, \sigma^2_i)$.</p>
 However, if we start to add in non-zero values to the other elements of the covariance matrix then this will no longer be the case and the <em>y</em>-value at one position will affect the <em>y</em>-value at another.
 
-<a name='reading'></a>
 
-<h4>Reading Material</h4>
-
-This is a very brief explanation of covariate Gaussian noise. For a better and more detailed description, I like these references:
-<ul>
-	<li><a href="http://www.gaussianprocess.org" target="_blank" rel="noopener">Gaussian Processes for Machine Learning</a>, Carl Edward Rasmussen and Chris Williams, the MIT Press</li>
-	<li><a href="http://www.robots.ox.ac.uk/~sjrob/Pubs/philTransA_2012.pdf" target="_blank" rel="noopener">Gaussian processes for time-series modelling</a>, S. Roberts, M. Osborne, M. Ebden, S. Reece, N. Gibson and S. Aigrain, Phil. Trans. R. Soc. A 2013 371, 20110550</li>
-</ul>
 The second of these has a particularly nice figure showing the effect of covariate Gaussian noise. It looks like this:
 
 <div class="fig figcenter fighighlight">
@@ -335,13 +326,10 @@ Statistically we should not expect our original realisation to lie within the sh
 
 One of the most well known examples of using Gaussian Process Modelling for forward prediction is the application described in <a href="http://www.gaussianprocess.org/gpml/chapters/RW5.pdf" target="_blank" rel="noopener">Rasmussen & Williams</a>, which shows the prediction for the future of atmospheric CO2 levels.
 
-[caption id="attachment_2190" align="alignnone" width="655"]<img class="alignnone size-full wp-image-2190" src="https://allofyourbases.files.wordpress.com/2017/08/rw5pt6.png" alt="RW5pt6" width="655" height="262" /> Figure 5.6 from Rasmussen & Williams[/caption]
-
-When the book was written, the prediction showed the increase in CO2 concentration continuing at roughly the same rate. However, things haven't gone so well for CO2 concentrations since then.
-
-[caption id="attachment_2182" align="alignnone" width="1162"]<img class="alignnone size-full wp-image-2182" src="https://allofyourbases.files.wordpress.com/2017/08/news3.png" alt="news3" width="1162" height="381" /> https://www.theguardian.com/environment/2016/sep/28/the-world-passes-400ppm-carbon-dioxide-threshold-permanently[/caption]
-
-In 2016, the carbon dioxide content of the Earth’s atmosphere hit a value of 400 parts per million. Even faster than the R&W model predicted.
+<div class="fig figcenter fighighlight">
+  <img src="https://allofyourbases.files.wordpress.com/2017/08/rw5pt6.png">
+  <div class="figcaption">Figure 5.6 from Rasmussen & Williams</div>
+</div>
 
 Here I'm going to step through how to repeat R&W's CO2 prediction in Python.
 <p style="text-align:center;"><em>[Note: this post follows on from <a href="http://allofyourbases.com/2017/09/04/gaussian-process-modelling-in-python/" target="_blank">a previous post</a> and <a href="http://allofyourbases.com/2017/08/21/gaussian-processes-in-python/" target="_blank" rel="noopener">an even more previous post</a>.]</em></p>
@@ -356,7 +344,7 @@ import pylab as pl
 import scipy.optimize as op
 ```
 
-In a previous post on Gaussian Process Modelling we coded up <strong>covariance kernels</strong> and a <strong>covariance matrix</strong> from scratch. This time we're going to need more than one kernel. We could write a little library that defines a whole load of different covariance kernels... but in fact <a href="http://dan.iel.fm/george/" target="_blank" rel="noopener">somebody has already done it for us</a> :-)
+In the section above we coded up <strong>covariance kernels</strong> and a <strong>covariance matrix</strong> from scratch. This time we're going to need more than one kernel. We could write a little library that defines a whole load of different covariance kernels... but in fact <a href="http://dan.iel.fm/george/" target="_blank" rel="noopener">somebody has already done it for us</a> :-)
 
 The <a href="http://dan.iel.fm/george/" target="_blank" rel="noopener"><code>george</code> Gaussian Process Modelling library</a> is pip installable:
 
@@ -416,7 +404,10 @@ pl.grid()
 pl.show()
 ```
 
-<img class="  wp-image-2090 aligncenter" src="https://allofyourbases.files.wordpress.com/2017/08/co2_data_2005.png" alt="co2_data_2005" width="621" height="243" />
+<div class="fig figcenter fighighlight">
+  <img src="https://allofyourbases.files.wordpress.com/2017/08/co2_data_2005.png">
+  <div class="figcaption"></div>
+</div>
 
 I'm going to split out my training data as a separate array:
 
@@ -429,7 +420,10 @@ To select appropriate kernels to describe the behaviour of the data in the covar
 
 <span style="text-decoration:underline;">Firstly</span>, there is a long term increase:
 
-<img class="alignnone size-full wp-image-2126" src="https://allofyourbases.files.wordpress.com/2017/08/co2_data_t1.png" alt="co2_data_t1" width="1506" height="590" />
+<div class="fig figcenter fighighlight">
+  <img src="https://allofyourbases.files.wordpress.com/2017/08/co2_data_t1.png">
+  <div class="figcaption"></div>
+</div>
 
 We could include a <strong>mean function</strong> to model this long term rise, but we can also just use a covariance kernel with a large width:
 <p style="text-align:center;">$latex
@@ -446,7 +440,10 @@ Note that I'm including the values of the <strong>hyper-parameters</strong> for 
 
 <span style="text-decoration:underline;">Secondly</span>, there is that periodic behaviour. So we need a periodic kernel.
 
-<img class="alignnone size-full wp-image-2128" src="https://allofyourbases.files.wordpress.com/2017/08/co2_data_t2.png" alt="co2_data_t2" width="1506" height="590" />
+<div class="fig figcenter fighighlight">
+  <img src="https://allofyourbases.files.wordpress.com/2017/08/co2_data_t2.png">
+  <div class="figcaption"></div>
+</div>
 
 However, we don't know if the behaviour is exactly periodic, so we should allow for some decay away from exact periodicity.
 <p style="text-align:center;">$latex
@@ -534,7 +531,11 @@ pl.grid()
 pl.show()
 ```
 
-<img class="  wp-image-2290 aligncenter" src="https://allofyourbases.files.wordpress.com/2017/08/co2_pred_1.png" alt="co2_pred_1.png" width="642" height="256" />
+<div class="fig figcenter fighighlight">
+  <img src="https://allofyourbases.files.wordpress.com/2017/08/co2_pred_1.png">
+  <div class="figcaption"></div>
+</div>
+
 <h3>Optimizing the Hyper-parameters</h3>
 But... what if the values of the hyper-parameters from R&W weren't exactly right? We should probably optimise them for the data. We can do that in simple cases using the optimization function in the <a href="https://www.scipy.org/scipylib/index.html" target="_blank" rel="noopener"><code>scipy</code> library</a>.
 
@@ -663,6 +664,17 @@ It's not quite as much of a difference from the prediction as the news seems to 
 But it does tell us that our model is not perfect and that perhaps:
 
 (1) Accelerated behaviour has appeared in the data after 2003; or
+
 (2) We need another kernel to account for acceleration in the increase; or
+
 (3) Perhaps we should introduce a non-zero mean [my personal guess].
 
+<a name='reading'></a>
+
+<h4>Reading Material</h4>
+
+This is a very brief explanation of covariate Gaussian noise. For a better and more detailed description, I like these references:
+<ul>
+	<li><a href="http://www.gaussianprocess.org" target="_blank" rel="noopener">Gaussian Processes for Machine Learning</a>, Carl Edward Rasmussen and Chris Williams, the MIT Press</li>
+	<li><a href="http://www.robots.ox.ac.uk/~sjrob/Pubs/philTransA_2012.pdf" target="_blank" rel="noopener">Gaussian processes for time-series modelling</a>, S. Roberts, M. Osborne, M. Ebden, S. Reece, N. Gibson and S. Aigrain, Phil. Trans. R. Soc. A 2013 371, 20110550</li>
+</ul>
