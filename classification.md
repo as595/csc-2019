@@ -1,5 +1,16 @@
 Pulsar classification is a great example of where machine learning can be used beneficially in astrophysics. It's not the most straightforward classification problem, but here I'm going to outline the basics using the scikit-learn random forest classifier. This post was inspired by <a href="http://www.scienceguyrob.com/">Rob Lyon</a>'s pulsar classification tutorials in the <a href="https://github.com/astro4dev/OAD-Data-Science-Toolkit/tree/master/Teaching%20Materials/Machine%20Learning/Supervised%20Learning/Examples/PPC">IAU OAD Data Science Toolkit</a>.
 
+- [The Pulsar Classification Problem](#pulsars)
+  - [Covariate Gaussian Noise in Python](#covarpython)
+  - [The Covariance Kernel](#kernel)
+- [Gaussian Process Modelling](#gpm)
+  - [Gaussian Process Modelling in Python](#gpmpython)
+  - [The George Python Library](#george)
+- [Forward Prediction using GPM](#future)
+  - [Optimizing Hyper-parameters](#optimization)
+- [Further Reading](#reading)
+
+<a name='The Pulsar Classification Problem'></a>
 
 <h3>I see dead... stars?</h3>
 
