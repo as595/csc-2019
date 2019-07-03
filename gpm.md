@@ -13,8 +13,8 @@ Quick check: Are you using a chi-squared test to fit your data? Yes? Well there 
   - [The Covariance Kernel](#kernel)
 - [Gaussian Process Modelling](#gpm)
   - [Gaussian Process Modelling in Python](#gpmpython)
-- [Extrapolation using GPM](#future)
-- [Summary](#summary)
+- [Future Prediction using GPM](#future)
+  - [Optimizing Hyper-parameters](#optimization)
 - [Further Reading](#reading)
 
 <a name='covariatenoise'></a>
@@ -499,7 +499,11 @@ gp.compute(t_to_2003)
 ```
 
 and... that's it.
+
+<a name='future'></a>
+
 <h3>Predicting the Future</h3>
+
 We can now predict the <strong>posterior mean and variance</strong> at all our test data points:
 
 ```python
@@ -537,7 +541,10 @@ pl.show()
   <div class="figcaption"></div>
 </div>
 
-<h3>Optimizing the Hyper-parameters</h3>
+<a name='optimization'></a>
+
+<h4>Optimizing the Hyper-parameters</h4>
+
 But... what if the values of the hyper-parameters from R&W weren't exactly right? We should probably optimise them for the data. We can do that in simple cases using the optimization function in the <a href="https://www.scipy.org/scipylib/index.html" target="_blank" rel="noopener"><code>scipy</code> library</a>.
 
 To use the <code>scipy</code> library optimization function we need to provide
@@ -628,7 +635,10 @@ pl.grid()
 pl.show()
 ```
 
-<img class="  wp-image-2110 aligncenter" src="https://allofyourbases.files.wordpress.com/2017/08/co2_pred_2.png" alt="co2_pred_2" width="615" height="266" />
+<div class="fig figcenter fighighlight">
+  <img src="https://allofyourbases.files.wordpress.com/2017/08/co2_pred_2.png">
+  <div class="figcaption"></div>
+</div>
 
 Well, the original parameters were basically optimal so things haven't changed much.
 
@@ -656,11 +666,17 @@ pl.grid()
 pl.show()
 ```
 
-<img class="  wp-image-2114 aligncenter" src="https://allofyourbases.files.wordpress.com/2017/08/co2_comp.png" alt="co2_comp" width="576" height="270" />
-
+<div class="fig figcenter fighighlight">
+  <img src="https://allofyourbases.files.wordpress.com/2017/08/co2_comp.png">
+  <div class="figcaption"></div>
+</div>
+			 
 It's not quite as much of a difference from the prediction as the news seems to think:
 
-<img class=" size-full wp-image-2156 aligncenter" src="https://allofyourbases.files.wordpress.com/2017/08/news4.png" alt="news4" width="466" height="382" />
+<div class="fig figcenter fighighlight">
+  <img src=https://allofyourbases.files.wordpress.com/2017/08/news4.png">
+  <div class="figcaption"></div>
+</div>
 
 But it does tell us that our model is not perfect and that perhaps:
 
