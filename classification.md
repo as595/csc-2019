@@ -203,7 +203,7 @@ import scikitplot as skplt
 
 <a name='traintest'></a>
 
-<h4>Train/Validation/Test Split</h4>
+<h4>Train / Validation / Test Split</h4>
 
 Now we need to split our labelled data into two separate datasets: one to train the classifier and one to test the fitted machine learning model. To do this we can use the function <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html" target="_blank" rel="noopener noreferrer">train_test_split</a> from the <a href="https://scikit-learn.org/" target="_blank" rel="noopener noreferrer">scikit_learn</a> library:
 
@@ -249,14 +249,14 @@ There are a variety of ways to evaluate the performance of a machine learning mo
 Suppose we have two target classes; these could be *cat* and *mouse*, or alternatively *pulsar* and *non-pulsar*, but here I'm just going to call them *positive* and *negative*. When we apply a machine learning model to the unlabelled test data composed of these classes it fits a split that looks like this:
 
 <div class="fig figcenter fighighlight">
-  <img src="/images/decisionrule2.png">
+  <img width="320" height="320" src="/images/decisionrule2.png">
   <div class="figcaption">Image credit: Rob Lyon</div>
 </div>
 
 An unlabelled (test) data sample from class one that has been correctly labelled is called a *true positive*, but a sample that has been incorrectly labelled is called a *false negative*; likewise, an unlabelled (test) data sample from class two that has been correctly labelled is called *true negative*, and a sample that has been incorrectly labelled is called a *false positive*. We use these names to describe the different types of errors and hence the performance metrics of the machine learning model.
 
 <div class="fig figcenter fighighlight">
-  <img src="/images/confusion.png"></div>
+  <img width="320" height="320" src="/images/confusion.png"></div>
 </div>
 
 Some commonly used performance metrics are:
