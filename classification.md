@@ -256,24 +256,32 @@ Suppose we have two target classes; these could be *cat* and *mouse*, or alterna
 An unlabelled (test) data sample from class one that has been correctly labelled is called a *true positive*, but a sample that has been incorrectly labelled is called a *false negative*; likewise, an unlabelled (test) data sample from class two that has been correctly labelled is called *true negative*, and a sample that has been incorrectly labelled is called a *false positive*. We use these names to describe the different types of errors and hence the performance metrics of the machine learning model.
 
 <div class="fig figcenter fighighlight">
-  <img width="320" height="320" src="/images/confusion.png"></div>
+  <img width="400" height="320" src="/images/confusion.png"></div>
 </div>
 
 Some commonly used performance metrics are:
 
 **Precision** The fraction of positive predictions that are truly positive.
 
-$latex {\rm Precision} = \frac{\rm TP}{\rm TP + FP}$
+<center>$latex {\rm Precision} = \frac{\rm TP}{\rm TP + FP}$</center>
 
 **Recall** The fraction of true positives that are predicted to be positive.
 
-$latex {\rm Re-call} = \frac{\rm TP}{\rm TP + FN}$
+<center>$latex {\rm Recall} = \frac{\rm TP}{\rm TP + FN}$</center>
 
-**F-score** A measure of accuracy that considers both precision and recall.
+**F1-score** A measure of accuracy that considers both precision and recall.
 
-$latex {\rm F-score} = 2\frac{\rm Precision \times Re-call}{\rm Precision + Re-call}$
+<center>$latex {\rm F1score} = 2\frac{\rm Precision \times Re-call}{\rm Precision + Re-call}$</center>
 
-A good first step is to evaluate the <a href="https://www.openml.org/a/estimation-procedures/1" target="_blank" rel="noopener noreferrer">cross-validation</a>. This will tell us how well our machine learning model generalises, i.e. whether we have over-fitted the training data.
+There are many other performance metrics, which are adapted to suit particular classification problems - for example if you are looking for a rare type of object in an imbalanced dataset. However, here we will only consider these three common metrics. 
+
+We can evaluate these metrics using our test dataset, but at this point the machine learning model has already been trained and we cannot refine it further. Poor performance metrics evaluated on test data are often an indication that the machine learning model has *over-fitted the training data* and does not generalise well to new input data. To guard against this we can use *validation data* during the training process. As described above, validation data is a subset of our training data that we reserve for on-the-fly performance testing. 
+
+A good way of using validation data is to evaluate the <a href="https://www.openml.org/a/estimation-procedures/1" target="_blank" rel="noopener noreferrer">k-fold cross-validation</a>. This will tell us how well our machine learning model generalises, i.e. whether we have over-fitted the training data.
+
+The term *k-fold* refers to how many different validation datasets you select from the training data. For example, in 5-fold cross-validation the trainnig data would be partitioned into five chunks and the training procedure iterated five times, each time choosing a different chunk as the validation dataset. The cross-validation performance metrics are then reported as an average across the five trained machine learning models.
+
+For example, we can do this using the pulsar dataset. Here we are implementing 10-fold cross-validation:
 
 ```python
 rfc_cv_score = cross_val_score(RFC, features, targets, cv=10, scoring='roc_auc')
