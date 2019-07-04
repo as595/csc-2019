@@ -15,12 +15,14 @@ Pulsar classification is a great example of where machine learning can be used b
 
 Pulsars are "pulsating radio sources", now known to be caused by rapidly rotating neutron stars. <a href="https://en.wikipedia.org/wiki/Neutron_star" target="_blank" rel="noopener noreferrer">Neutron stars</a> are the relics of dead massive stars, they're small and extremely dense - think about something the same mass as the Sun crammed into a radius roughly the same as the <a href="https://en.wikipedia.org/wiki/M25_motorway" target="_blank" rel="noopener noreferrer">M25 motorway around London</a>. You can read all about them <a href="http://www.jb.man.ac.uk/distance/frontiers/pulsars/section1.html" target="_blank" rel="noopener noreferrer">here</a>.
 
+A characteristic property of pulsars are the periodic bursts of emission produced by their radio emitting jets. As the pulsar rotates, the direction of this emission also rotates and astronomers see a pulse of radio emission each time one of the jets points towards the Earth. 
+
 <div class="fig figcenter fighighlight">
   <img src="https://allofyourbases.files.wordpress.com/2019/03/lightnew.gif">
   <div class="figcaption">An <a href="http://www.astron.nl/pulsars/animations/">artist's impression of a pulsar</a>. Image credit: <a href="http://www.astron.nl/astronomy-group/people/joeri-van-leeuwen/joeri-van-leeuwen">Joeri van Leeuwen</a>, License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-AS</a></div>
 </div>
 
-You can even <a href="http://www.jb.man.ac.uk/distance/frontiers/pulsars/section1.html" target="_blank" rel="noopener noreferrer">listen to them</a> (if you really want to...)
+You can even <a href="http://www.jb.man.ac.uk/distance/frontiers/pulsars/section1.html" target="_blank" rel="noopener noreferrer">listen to the pulses</a> (if you really want to...)
 
 <div class="fig figcenter fighighlight">
   <audio controls>
@@ -28,7 +30,6 @@ You can even <a href="http://www.jb.man.ac.uk/distance/frontiers/pulsars/section
   </audio>
 <div class="figcaption"><b>PSR B0329+54</b>: This pulsar is a typical, normal pulsar, rotating with a period of 0.714519 seconds, i.e. close to 1.40 rotations/sec.</div>
 </div>
-
 
 
 Pulsars are pretty interesting objects in their own right, they are used as a probe of stellar evolution as well as being used <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=3&cad=rja&uact=8&ved=2ahUKEwiG5PXzrvXgAhXHXRUIHZeICTYQFjACegQIAxAB&url=https%3A%2F%2Fwww.sciencedirect.com%2Fscience%2Farticle%2Fpii%2FS1387647304000909&usg=AOvVaw1IKp5W-f3gu3QCjmDCpBYR" target="_blank" rel="noopener noreferrer">to test general relativity</a> due to their extremely high densities. These days they're also used to detect and map <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=3&cad=rja&uact=8&ved=2ahUKEwjWt9XfrvXgAhXdTBUIHZUDCA8QFjACegQIARAB&url=https%3A%2F%2Fwww.skatelescope.org%2Fnewsandmedia%2Foutreachandeducation%2Fskawow%2Fgravitational-wave%2F&usg=AOvVaw2tEsK4ezAUVVM4K62KVnnW" target="_blank" rel="noopener noreferrer">gravitational wave signatures</a>. However, identifying them in the data streams from radio telescopes is not trivial. There are lots of man-made sources of radio frequency interference that can mimic the signals from pulsars. Classifying candidate data samples as <em>pulsar</em> or <em>not pulsar</em> is serious business.
