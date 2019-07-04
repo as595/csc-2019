@@ -1,7 +1,8 @@
 Pulsar classification is a great example of where machine learning can be used beneficially in astrophysics. It's not the most straightforward classification problem, but here I'm going to outline the basics using the scikit-learn random forest classifier. This post was inspired by <a href="http://www.scienceguyrob.com/">Rob Lyon</a>'s pulsar classification tutorials in the <a href="https://github.com/astro4dev/OAD-Data-Science-Toolkit/tree/master/Teaching%20Materials/Machine%20Learning/Supervised%20Learning/Examples/PPC">IAU OAD Data Science Toolkit</a>.
 
 - [The Pulsar Classification Problem](#pulsars)
-- [Pulsars in Python](#pythonpulsars)
+  - [Pulsar Data in Python](#pythonpulsars)
+- [Pulsar Classification](#classification)
   - [Train/Validation/Split](#traintest)
   - [Performance Metrics](#metrics)
   - [Feature Ranking](#ranking)
@@ -35,18 +36,7 @@ Pulsars are pretty interesting objects in their own right, they are used as a pr
 
 <h3>The Pulsar Classification Problem</h3>
 
-In order to classify a data sample as a *pulsar* or *not a pulsar*, we need to be able to extract some information on the data sample that can characterise its class. The individual bursts of emission from a pulsar (i.e. the pulses) do not have a constant shape or amplitude, so individually they're not very useful for uniquely identifying a pulsar: 
-
-<div class="fig figcenter fighighlight">
-  <video width="500px" height="350px" autobuffer="autobuffer" autoplay="autoplay" loop="loop" controls="controls">
-    <source src='images/oszi2.mpg' type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
-  </video>
-  <div class="figcaption"><a href="http://www.jb.man.ac.uk/distance/frontiers/pulsars/section2.html" target="_blank" rel="noopener noreferrer">Jodrell Bank Frontiers of Modern Astronomy</a></div>
-</div>
-
-<embed src="images/oszi2.mpg" autostart="false" height="30" width="144" />
-
-<img src="images/oszi2.mpg"></img>
+In order to classify a data sample as a *pulsar* or *not a pulsar*, we need to be able to extract some information on the data sample that can characterise its class. The individual bursts of emission from a pulsar (i.e. the pulses) do not have a constant shape or amplitude, so individually they're not very useful for uniquely identifying a pulsar.
 
 Because the individual pulses are all different, astronomers stack them up and create an average integrated pulse profile to characterise a particular pulsar:
 
@@ -72,16 +62,17 @@ Astronomers fit for the shape of the delay in order to compensate for its effect
   <div class="figcaption"></div>
 </div>
 
-When you put these two curves together it means that for each pulsar candidate there are <strong>eight numerical features</strong> that can be extracted as standard: four from the integrated pulse profile and four from the DM-SNR curve:
+When you put these two curves together it means that for each pulsar candidate there are <strong>eight numerical characteristic features</strong> that can be extracted as standard: four from the integrated pulse profile and four from the DM-SNR curve:
 
 <div class="fig figcenter fighighlight">
   <img src="https://allofyourbases.files.wordpress.com/2019/03/pulsar_features.png">
   <div class="figcaption"></div>
 </div>
 
+
 <a name='pythonpulsars'></a>
 
-<h3>Pulsars in Python</h3>
+<h4>Pulsar Data in Python</h4>
 
 First some general libraries:
 
@@ -146,6 +137,12 @@ The labels for each object tell us abut the target class and we can create an ar
 ```python
 targets = df['class']
 ```
+
+<a name='classification'></a>
+
+<h3>Classifying Pulsars</h3>
+
+
 
 <a name='traintest'></a>
 
