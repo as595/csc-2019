@@ -106,15 +106,11 @@ feature_names = df.columns.values[0:-1]
 print(feature_names)
 ```
 
-<p style = "font-family:"Courier New",Courier,monospace;font-size:16px;font-style:normal;">
-['mean_int_pf' 'std_pf' 'ex_kurt_pf' 'skew_pf' 'mean_dm' 'std_dm'
-'kurt_dm' 'skew_dm']</p>
-
 <p style = "font-family:'Courier New',Courier,monospace;font-size:16px;font-style:normal;">
 ['mean_int_pf' 'std_pf' 'ex_kurt_pf' 'skew_pf' 'mean_dm' 'std_dm'
 'kurt_dm' 'skew_dm']</p>
 
-<font face="courier">This is some text!</font>
+<font face="courier new">This is some text!</font>
 
 and we can check just how much data we're dealing with:
 
@@ -122,7 +118,7 @@ and we can check just how much data we're dealing with:
 print ('Dataset has %d rows and %d columns including features and labels'%(df.shape[0],df.shape[1]))
 ```
 
-<code>Dataset has 17898 rows and 9 columns including features and labels</code>
+<font face="courier new">Dataset has 17898 rows and 9 columns including features and labels</font>
 
 We're going to start by separating the numerical feature data from the class labels for all the candidates. To get the feature data on its own we can just strip off the column containing the class labels:
 
