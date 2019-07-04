@@ -257,6 +257,7 @@ An unlabelled (test) data sample from class one that has been correctly labelled
 
 <div class="fig figcenter fighighlight">
   <img width="400" height="320" src="/images/confusion.png">
+  <div class="figcaption">Confusion matrix.</div>
 </div>
 
 Some commonly used performance metrics are:
@@ -279,7 +280,7 @@ We can evaluate these metrics using our test dataset, but at this point the mach
 
 A good way of using validation data is to evaluate the <a href="https://www.openml.org/a/estimation-procedures/1" target="_blank" rel="noopener noreferrer">k-fold cross-validation</a>. This will tell us how well our machine learning model generalises, i.e. whether we have over-fitted the training data.
 
-The term *k-fold* refers to how many different validation datasets you select from the training data. For example, in 5-fold cross-validation the trainnig data would be partitioned into five chunks and the training procedure iterated five times, each time choosing a different chunk as the validation dataset. The cross-validation performance metrics are then reported as an average across the five trained machine learning models.
+The term *k-fold* refers to how many different validation datasets you select from the training data. For example, in 5-fold cross-validation the training data would be partitioned into five chunks and the training procedure iterated five times, each time choosing a different chunk as the validation dataset. The cross-validation performance metrics are then reported as an average across the five trained machine learning models.
 
 For example, we can do this using the pulsar dataset. Here we are implementing 10-fold cross-validation:
 
