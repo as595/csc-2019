@@ -106,8 +106,9 @@ feature_names = df.columns.values[0:-1]
 print(feature_names)
 ```
 
-<code>['mean_int_pf' 'std_pf' 'ex_kurt_pf' 'skew_pf' 'mean_dm' 'std_dm'
-'kurt_dm' 'skew_dm']</code>
+<p style = "font-family:georgia,garamond,serif;font-size:16px;font-style:italic;">
+['mean_int_pf' 'std_pf' 'ex_kurt_pf' 'skew_pf' 'mean_dm' 'std_dm'
+'kurt_dm' 'skew_dm']</p>
 
 and we can check just how much data we're dealing with:
 
