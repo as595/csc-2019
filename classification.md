@@ -140,7 +140,12 @@ targets = df['class']
 
 <h3>Classifying Pulsars</h3>
 
-The objective for pulsar astronomers is to classify each data sample as **pulsar* or **not pulsar**. These two possible outcomes are known as the *target classes*. There are multiple machine learning algorithms that can be used for this kind of **binary classification** (i.e. only two possible target classes). The principles behind all of them are the same. 
+The objective for pulsar astronomers is to classify each data sample as **pulsar** or **not pulsar**. These two possible outcomes are known as the *target classes*. There are multiple machine learning algorithms that can be used for this kind of **binary classification** (i.e. only two possible target classes). The principles behind all of them are the same. 
+
+<div class="fig figcenter fighighlight">
+  <img src="/images/mldiagram.png">
+  <div class="figcaption"></div>
+</div>
 
 **Test data** The ultimate goal of building a classifier is to be able to use it on previously unseen data and recover the correct classifications for each data sample. This unseen dataset is typically referred to as your *test data*.
 
@@ -153,11 +158,6 @@ The objective for pulsar astronomers is to classify each data sample as **pulsar
 **Machine learning model** The machine learning model is the output of your learning algorithm. You apply it to your **test data** to derive the predicted class of each test sample.
 
 
-<div class="fig figcenter fighighlight">
-  <img src="/images/mldiagram.png">
-  <div class="figcaption"></div>
-</div>
-
 In this example we'll use a random forest machine learning algorithm to classify the HTRU2 pulsar dataset. A random forest is a learning algorithm constructed from multiple decision trees. 
 
 <a name='randomforest'></a>
@@ -167,14 +167,14 @@ In this example we'll use a random forest machine learning algorithm to classify
 A **decision tree** classifies data samples using a hierarchical set of data partitions in feature space. An example of one such partition could be claasifying an animal as a mouse or a cat based on length data. Here *length* is our feature and our target classes are *cat* and *mouse*. If we draw a partition such that <font face="courier new">(length>10cm) = 'cat'</font> and <font face="courier new">(length<10cm) = 'mouse'</font> we have implemented a decision tree with a single node. 
 
 <div class="fig figcenter fighighlight">
-  <img src="/images/decisionnode.png">
+  <img width="120" height="120" src="/images/decisionnode.png">
   <div class="figcaption">Lyon et al. 2016</div>
 </div>
 
 In reality if we created a training dataset by measuring 1000 cats and 1000 mice we would find that there was a distribution of lengths for each class, and that 10cm might not be the optimal partition value. The machine learning part of a decision tree is learning where that optimal value is. If we have multiple features, say *length*, *height* and *weight*, the algorithm will learn the best split point for all three.
 
 <div class="fig figcenter fighighlight">
-  <img src="/images/splitpoints.png">
+  <img  width="360" height="120" src="/images/splitpoints.png">
   <div class="figcaption">Lyon et al. 2016</div>
 </div>
 
