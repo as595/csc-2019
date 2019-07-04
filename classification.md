@@ -246,11 +246,32 @@ So how did we do? We need to evaluate the performance of our classifier.
 
 There are a variety of ways to evaluate the performance of a machine learning model. Which one you choose should depend on the objective of your classification. Before we look at some common performance metrics we first need to define a few terms.
 
-Suppose we have two target classes; these could be *cat* and *mouse*, or alternatively *pulsar* and *non-pulsar*, but here I'm just going to call them *positive* and *negative*. 
+Suppose we have two target classes; these could be *cat* and *mouse*, or alternatively *pulsar* and *non-pulsar*, but here I'm just going to call them *positive* and *negative*. When we apply a machine learning model to the unlabelled test data composed of these classes it fits a split that looks like this:
 
+<div class="fig figcenter fighighlight">
+  <img src="/images/decisionrule2.png"></div>
+  <div class="figcaption">Image credit: Rob Lyon</div>
+</div>
 
+An unlabelled (test) data sample from class one that has been correctly labelled is called a *true positive*, but a sample that has been incorrectly labelled is called a *false negative*; likewise, an unlabelled (test) data sample from class two that has been correctly labelled is called *true negative*, and a sample that has been incorrectly labelled is called a *false positive*. We use these names to describe the different types of errors and hence the performance metrics of the machine learning model.
 
-**Precision** The fraction of true postives 
+<div class="fig figcenter fighighlight">
+  <img src="/images/confusion.png"></div>
+</div>
+
+Some commonly used performance metrics are:
+
+**Precision** The fraction of positive predictions that are truly positive.
+
+$latex {\rm Precision} = \frac{\rm TP}{\rm TP + FP}$
+
+**Recall** The fraction of true positives that are predicted to be positive.
+
+$latex {\rm Re-call} = \frac{\rm TP}{\rm TP + FN}$
+
+**F-score** A measure of accuracy that considers both precision and recall.
+
+$latex {\rm F-score} = 2\frac{\rm Precision \times Re-call}{\rm Precision + Re-call}$
 
 A good first step is to evaluate the <a href="https://www.openml.org/a/estimation-procedures/1" target="_blank" rel="noopener noreferrer">cross-validation</a>. This will tell us how well our machine learning model generalises, i.e. whether we have over-fitted the training data.
 
