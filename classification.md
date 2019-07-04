@@ -44,6 +44,10 @@ In order to classify a data sample as a *pulsar* or *not a pulsar*, we need to b
   <div class="figcaption"><a href="http://www.jb.man.ac.uk/distance/frontiers/pulsars/section2.html" target="_blank" rel="noopener noreferrer">Jodrell Bank Frontiers of Modern Astronomy</a></div>
 </div>
 
+<embed src="images/oszi2.mpg" autostart="false" height="30" width="144" />
+
+<img src="images/oszi2.mpg"></img>
+
 Because the individual pulses are all different, astronomers stack them up and create an average integrated pulse profile to characterise a particular pulsar:
 
 
