@@ -74,34 +74,17 @@ When you put these two curves together it means that for each pulsar candidate t
 
 <h4>Pulsar Data in Python</h4>
 
-First some general libraries:
+The <a href="https://archive.ics.uci.edu/ml/datasets/HTRU2" target="_blank" rel="noopener noreferrer">HTRU2 dataset</a>  compiles the eight features described above for 1,639 true known pulsars, as well as 16,259 additional candidate pulsars later identified to be RFI/noise. You can find a full description of the dataset in <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwiKj-aKqfXgAhX1sHEKHeMdAIYQFjAAegQIARAB&url=https%3A%2F%2Farxiv.org%2Fabs%2F1603.05166&usg=AOvVaw1K0x75Q0pLRZqpvTbd5nMD" target="_blank" rel="noopener noreferrer">this paper</a>.
+
+I added a row to the original CSV that lists the feature names - you can find my version in the IAU OAD Data Science Toolkit <a href="https://github.com/astro4dev/OAD-Data-Science-Toolkit/blob/master/Teaching%20Materials/Machine%20Learning/Supervised%20Learning/Examples/PPC/Data/pulsar.csv" target="_blank" rel="noopener noreferrer">here</a>.
+
+To read these data into python you can import the pandas library:
 
 ```python
-import numpy as np   # for array stuff
-import pylab as pl   # for plotting stuff
 import pandas as pd  # for data handling
 ```
 
-Then a bunch of scikit-learn libraries:
-
-```python
-from sklearn.ensemble import RandomForestClassifier
-from sklearn import model_selection
-from sklearn.model_selection import train_test_split
-from sklearn.model_selection import cross_val_score, cross_val_predict
-from sklearn.metrics import classification_report, confusion_matrix
-from sklearn.metrics import roc_curve, roc_auc_score
-```
-
-I'm also using <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwjZmfDhqfXgAhV1unEKHU73BRsQFjAAegQIBRAC&url=https%3A%2F%2Fscikit-plot.readthedocs.io%2Fen%2Fstable%2F&usg=AOvVaw1BmgIU7oy2JWfM6QRyjnZw" target="_blank" rel="noopener noreferrer">scikit-plot</a>, which I only recently discovered and has made my life much easier :-)
-
-```python
-import scikitplot as skplt
-```
-
-I'm using the <a href="https://archive.ics.uci.edu/ml/datasets/HTRU2" target="_blank" rel="noopener noreferrer">HTRU2 dataset</a>. This dataset compiles the eight features described above for both 1,639 true known pulsars, as well as 16,259 additional candidate pulsars later identified to be RFI/noise. You can find a full description of the dataset in <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwiKj-aKqfXgAhX1sHEKHeMdAIYQFjAAegQIARAB&url=https%3A%2F%2Farxiv.org%2Fabs%2F1603.05166&usg=AOvVaw1K0x75Q0pLRZqpvTbd5nMD" target="_blank" rel="noopener noreferrer">this paper</a>.
-
-I added a row to the CSV for the feature names for the purpose of this example - you can find my version in the IAU OAD Data Science Toolkit <a href="https://github.com/astro4dev/OAD-Data-Science-Toolkit/blob/master/Teaching%20Materials/Machine%20Learning/Supervised%20Learning/Examples/PPC/Data/pulsar.csv" target="_blank" rel="noopener noreferrer">here</a>.
+and use it to read the CSV file:
 
 ```python
 df = pd.read_csv('data/pulsar.csv')
@@ -141,6 +124,27 @@ targets = df['class']
 <a name='classification'></a>
 
 <h3>Classifying Pulsars</h3>
+
+Then a bunch of scikit-learn libraries:
+
+```python
+import numpy as np   # for array stuff
+import pylab as pl   # for plotting stuff
+
+from sklearn.ensemble import RandomForestClassifier
+from sklearn import model_selection
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import cross_val_score, cross_val_predict
+from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.metrics import roc_curve, roc_auc_score
+```
+
+I'm also using <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwjZmfDhqfXgAhV1unEKHU73BRsQFjAAegQIBRAC&url=https%3A%2F%2Fscikit-plot.readthedocs.io%2Fen%2Fstable%2F&usg=AOvVaw1BmgIU7oy2JWfM6QRyjnZw" target="_blank" rel="noopener noreferrer">scikit-plot</a>, which I only recently discovered and has made my life much easier :-)
+
+```python
+import scikitplot as skplt
+```
+
 
 
 
