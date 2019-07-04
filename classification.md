@@ -152,7 +152,7 @@ In this example we'll use a random forest machine learning algorithm to classify
 
 <h4>Decision Trees & Random Forests</h4>
 
-A decision tree classifies data samples using a hierarchical set of data partitions in feature space. An example of one such partition could be claasifying an animal as a mouse or a cat based on length data. Here *length* is our feature and our target classes are *cat* and *mouse*. If we draw a partition such that <font face="courier new">(length>10cm) = 'cat'</font> and <font face="courier new">(length<10cm) = 'mouse'</font> we have implemented a decision tree with a single node. 
+A **decision tree** classifies data samples using a hierarchical set of data partitions in feature space. An example of one such partition could be claasifying an animal as a mouse or a cat based on length data. Here *length* is our feature and our target classes are *cat* and *mouse*. If we draw a partition such that <font face="courier new">(length>10cm) = 'cat'</font> and <font face="courier new">(length<10cm) = 'mouse'</font> we have implemented a decision tree with a single node. 
 
 <div class="fig figcenter fighighlight">
   <img src="images/decisionnode.png">
@@ -166,7 +166,9 @@ In reality if we created a training dataset by measuring 1000 cats and 1000 mice
   <div class="figcaption">Lyon et al. 2016</div>
 </div>
 
-Then a bunch of scikit-learn libraries:
+A **random forest** employs a collection of decision trees and then makes a final classification by majority consensus. Each tree in the random forest is given a subset of the complete training dataset from which to learn and uses a subset of the features to represent the data. This technique is known as *bootstrap aggregating*, or *bagging* for short. It is used to mitigate against biases that can be introduced into the final classification by the presence of particular data samples or collections of samples, or an over-reliance on one particular feature or set of features.
+
+An easy way to implement a random forest in Python is to use the scikit-learn library. For what follows, these are the library routines that need to import:
 
 ```python
 import numpy as np   # for array stuff
@@ -180,7 +182,7 @@ from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.metrics import roc_curve, roc_auc_score
 ```
 
-I'm also using <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwjZmfDhqfXgAhV1unEKHU73BRsQFjAAegQIBRAC&url=https%3A%2F%2Fscikit-plot.readthedocs.io%2Fen%2Fstable%2F&usg=AOvVaw1BmgIU7oy2JWfM6QRyjnZw" target="_blank" rel="noopener noreferrer">scikit-plot</a>, which I only recently discovered and has made my life much easier :-)
+We'll also be using the <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwjZmfDhqfXgAhV1unEKHU73BRsQFjAAegQIBRAC&url=https%3A%2F%2Fscikit-plot.readthedocs.io%2Fen%2Fstable%2F&usg=AOvVaw1BmgIU7oy2JWfM6QRyjnZw" target="_blank" rel="noopener noreferrer">scikit-plot</a>, which I only recently discovered and has made my life much easier :-)
 
 ```python
 import scikitplot as skplt
