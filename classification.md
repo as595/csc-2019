@@ -1,13 +1,10 @@
 Pulsar classification is a great example of where machine learning can be used beneficially in astrophysics. It's not the most straightforward classification problem, but here I'm going to outline the basics using the scikit-learn random forest classifier. This post was inspired by <a href="http://www.scienceguyrob.com/">Rob Lyon</a>'s pulsar classification tutorials in the <a href="https://github.com/astro4dev/OAD-Data-Science-Toolkit/tree/master/Teaching%20Materials/Machine%20Learning/Supervised%20Learning/Examples/PPC">IAU OAD Data Science Toolkit</a>.
 
 - [The Pulsar Classification Problem](#pulsars)
-  - [Covariate Gaussian Noise in Python](#covarpython)
-  - [The Covariance Kernel](#kernel)
-- [Gaussian Process Modelling](#gpm)
-  - [Gaussian Process Modelling in Python](#gpmpython)
-  - [The George Python Library](#george)
-- [Forward Prediction using GPM](#future)
-  - [Optimizing Hyper-parameters](#optimization)
+- [Pulsars in Python](#pythonpulsars)
+  - [Train/Validation/Split](#traintest)
+  - [Performance Metrics](#metrics)
+  - [Feature Ranking](#ranking)
 - [Further Reading](#reading)
 
 <a name='The Pulsar Classification Problem'></a>
@@ -65,89 +62,96 @@ When you put these two curves together it means that for each pulsar candidate t
   <div class="figcaption"></div>
 </div>
 
-<h3>Getting set-up</h3>
+<a name='pythonpulsars'></a>
+
+<h3>Pulsars in Python</h3>
+
 First some general libraries:
 
-[code language="python" gutter="false" highlight="1-100"]
+```python
 import numpy as np   # for array stuff
 import pylab as pl   # for plotting stuff
 import pandas as pd  # for data handling
-[/code]
+```
 
 Then a bunch of scikit-learn libraries:
 
-[code language="python" gutter="false" highlight="1-100"]
+```python
 from sklearn.ensemble import RandomForestClassifier
 from sklearn import model_selection
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import cross_val_score, cross_val_predict
 from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.metrics import roc_curve, roc_auc_score
-[/code]
+```
 
 I'm also using <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwjZmfDhqfXgAhV1unEKHU73BRsQFjAAegQIBRAC&url=https%3A%2F%2Fscikit-plot.readthedocs.io%2Fen%2Fstable%2F&usg=AOvVaw1BmgIU7oy2JWfM6QRyjnZw" target="_blank" rel="noopener noreferrer">scikit-plot</a>, which I only recently discovered and has made my life much easier :-)
 
-[code language="python" gutter="false" highlight="1-100"]
+```python
 import scikitplot as skplt
-[/code]
+```
 
 I'm using the <a href="https://archive.ics.uci.edu/ml/datasets/HTRU2" target="_blank" rel="noopener noreferrer">HTRU2 dataset</a>. This dataset compiles the eight features described above for both 1,639 true known pulsars, as well as 16,259 additional candidate pulsars later identified to be RFI/noise. You can find a full description of the dataset in <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwiKj-aKqfXgAhX1sHEKHeMdAIYQFjAAegQIARAB&url=https%3A%2F%2Farxiv.org%2Fabs%2F1603.05166&usg=AOvVaw1K0x75Q0pLRZqpvTbd5nMD" target="_blank" rel="noopener noreferrer">this paper</a>.
 
 I added a row to the CSV for the feature names for the purpose of this example - you can find my version in the IAU OAD Data Science Toolkit <a href="https://github.com/astro4dev/OAD-Data-Science-Toolkit/blob/master/Teaching%20Materials/Machine%20Learning/Supervised%20Learning/Examples/PPC/Data/pulsar.csv" target="_blank" rel="noopener noreferrer">here</a>.
 
-[code language="python" gutter="false" highlight="1-100"]
+```python
 df = pd.read_csv('data/pulsar.csv')
-[/code]
+```
 
 You can take a look at the names of the features in the file like this (<code>pf</code> = integrated profile & <code>dm</code> = DM-SNR curve):
 
-[code language="python" gutter="false" highlight="1-100"]
+```python
 feature_names = df.columns.values[0:-1]
 print(feature_names)
-[/code]
+```
 
 <code>['mean_int_pf' 'std_pf' 'ex_kurt_pf' 'skew_pf' 'mean_dm' 'std_dm'
 'kurt_dm' 'skew_dm']</code>
 
 and we can check just how much data we're dealing with:
 
-[code language="python" gutter="false" highlight="1-100"]
+```python
 print ('Dataset has %d rows and %d columns including features and labels'%(df.shape[0],df.shape[1]))
-[/code]
+```
 
 <code>Dataset has 17898 rows and 9 columns including features and labels</code>
 
 We're going to start by separating the numerical feature data from the class labels for all the candidates. To get the feature data on its own we can just strip off the column containing the class labels:
 
-[code language="python" gutter="false" highlight="1-100"]
+```python
 features = df.drop('class', axis=1)
-[/code]
+```
 
 The labels for each object tell us abut the target class and we can create an array of those data by extracting the column from the original dataset:
 
-[code language="python" gutter="false" highlight="1-100"]
+```python
 targets = df['class']
-[/code]
-<h3>Setting up the Machine Learning</h3>
+```
+
+<a name='traintest'></a>
+
+<h4>Train/Validation/Test Split</h4>
+
 Now we need to split our labelled data into two separate datasets: one to train the classifier and one to test the fitted machine learning model. To do this we can use the function <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html" target="_blank" rel="noopener noreferrer">train_test_split</a> from the <a href="https://scikit-learn.org/" target="_blank" rel="noopener noreferrer">scikit_learn</a> library:
 
-[code language="python" gutter="false" highlight="1-100"]
+```python
 X_train, X_test, y_train, y_test = train_test_split(features, targets, test_size=0.33, random_state=66)
-[/code]
+```
 
 At this point we now have our dataset in a suitable state to start training the classifier.
 
 To start with we need to initiate the random forest classifier from <a href="https://scikit-learn.org/" target="_blank" rel="noopener noreferrer">scikit_learn</a>:
 
-[code language="python" gutter="false" highlight="1-100"]
+```python
 RFC = RandomForestClassifier(n_jobs=2,n_estimators=10)
-[/code]
+```
 
 ...and we can immediately fit the machine learning model to our training data:
 
-[code language="python" gutter="false" highlight="1-100"]
+```python
 RFC.fit(X_train,y_train)
-[/code]
+```
 
 <code>RandomForestClassifier(bootstrap=True, class_weight=None, criterion='gini',
 max_depth=None, max_features='auto', max_leaf_nodes=None,
@@ -159,20 +163,23 @@ warm_start=False)</code>
 
 We can then used the trained classifier to predict the label for the test data that we split out earlier:
 
-[code language="python" gutter="false" highlight="1-100"]
+```python
 rfc_predict = RFC.predict(X_test)
-[/code]
-<h3>Evaluating Performance</h3>
+```
+
+<a name='metrics'></a>
+<h4>Performance Metrics</h4>
+
 So how did we do? We need to evaluate the performance of our classifier.
 A good first step is to evaluate the <a href="https://www.openml.org/a/estimation-procedures/1" target="_blank" rel="noopener noreferrer">cross-validation</a>. This will tell us how well our machine learning model generalises, i.e. whether we have over-fitted the training data.
 
-[code language="python" gutter="false" highlight="1-100"]
+```python
 rfc_cv_score = cross_val_score(RFC, features, targets, cv=10, scoring='roc_auc')
-[/code]
+```
 
 Let's print out the various evaluation criteria:
 
-[code language="python" gutter="false" highlight="1-100"]
+```python
 print("=== Confusion Matrix ===")
 print(confusion_matrix(y_test, rfc_predict))
 print('\n')
@@ -184,7 +191,7 @@ print(rfc_cv_score)
 print('\n')
 print("=== Mean AUC Score ===")
 print("Mean AUC Score - Random Forest: ", rfc_cv_score.mean())
-[/code]
+```
 
 <code>=== Confusion Matrix ===
 [[5327   35]
@@ -209,46 +216,58 @@ Mean AUC Score - Random Forest: 0.956677415292086</code>
 
 We can make a more visual representation of the confusion matrix using the scikit-plot library. To do this we need to know the predictions from our cross validation, rather than the <a href="https://developers.google.com/machine-learning/crash-course/classification/roc-and-auc" target="_blank" rel="noopener noreferrer">Area Under Curve (AUC)</a> value:
 
-[code language="python" gutter="false" highlight="1-100"]
+```python
 predictions = cross_val_predict(RFC, features, targets, cv=2)
-[/code]
+```
 
-[code language="python" gutter="false" highlight="1-100"]
+```python
 skplt.metrics.plot_confusion_matrix(targets, predictions, normalize=True)
-[/code]
+```
 
-<img class=" size-full wp-image-3542 aligncenter" src="https://allofyourbases.files.wordpress.com/2019/03/conf_mat.png" alt="conf_mat" width="309" height="278" />
+<div class="fig figcenter fighighlight">
+  <img src="https://allofyourbases.files.wordpress.com/2019/03/conf_mat.png">
+  <div class="figcaption"></div>
+</div>
 
 To plot the <a href="https://en.wikipedia.org/wiki/Receiver_operating_characteristic" target="_blank" rel="noopener noreferrer">ROC curve</a> we need to find the probabilities for each target class separately. We can do this with the predict_proba function:
 
-[code language="python" gutter="false" highlight="1-100"]
+```python
 probas = RFC.predict_proba(X_test)
-[/code]
+```
 
-[code language="python" gutter="false" highlight="1-100"]
+```python
 skplt.metrics.plot_roc(y_test, probas)
-[/code]
+```
 
 In a balanced data set there should be no difference between the micro-average ROC curve and the macro-average ROC curve. In the case where there is a class imbalance (like here), if the macro ROC curve is lower than the micro-ROC curve then there are more cases of mis-classification in minority class.
 
-<img class=" size-full wp-image-3541 aligncenter" src="https://allofyourbases.files.wordpress.com/2019/03/roc.png" alt="roc.png" width="394" height="278" />
+<div class="fig figcenter fighighlight">
+  <img src="https://allofyourbases.files.wordpress.com/2019/03/roc.png">
+  <div class="figcaption"></div>
+</div>
 
 We can use the output of the <code>RFC.predict_proba( )</code> function to plot a <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=3&cad=rja&uact=8&ved=2ahUKEwiK0_nWsvXgAhUiTxUIHQh6B2YQFjACegQIBhAK&url=http%3A%2F%2Fscikit-learn.org%2Fstable%2Fauto_examples%2Fmodel_selection%2Fplot_precision_recall.html&usg=AOvVaw1UG9QgvJBEERHSf61yVi9K" target="_blank" rel="noopener noreferrer">Precision-Recall Curve</a>.
 
-[code language="python" gutter="false" highlight="1-100"]
+```python
 skplt.metrics.plot_precision_recall(y_test, probas)
-[/code]
+```
 
-<img class=" size-full wp-image-3540 aligncenter" src="https://allofyourbases.files.wordpress.com/2019/03/precision_recall.png" alt="precision_recall.png" width="394" height="278" />
-<h3>Ranking the Features</h3>
+<div class="fig figcenter fighighlight">
+  <img src="https://allofyourbases.files.wordpress.com/2019/03/precision_recall.png">
+  <div class="figcaption"></div>
+</div>
+
+<a name='ranking'></a>
+
+<h4>Feature Ranking</h4>
 Let's take a look at the relative importance of the different features that we fed to our classifier:
 
-[code language="python" gutter="false" highlight="1-100"]
+```python
 importances = RFC.feature_importances_
 indices = np.argsort(importances)
-[/code]
+```
 
-[code language="python" gutter="false" highlight="1-100"]
+```python
 pl.figure(1)
 pl.title('Feature Importances')
 pl.barh(range(len(indices)), importances[indices], color='b', align='center')
@@ -256,6 +275,9 @@ pl.yticks(range(len(indices)), feature_names[indices])
 pl.xlabel('Relative Importance')
 
 pl.show()
-[/code]
+```
 
-<img class=" size-full wp-image-3539 aligncenter" src="https://allofyourbases.files.wordpress.com/2019/03/importances.png" alt="importances.png" width="420" height="278" />
+<div class="fig figcenter fighighlight">
+  <img src="https://allofyourbases.files.wordpress.com/2019/03/importances.png">
+  <div class="figcaption"></div>
+</div>
