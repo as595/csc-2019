@@ -7,7 +7,7 @@ Pulsar classification is a great example of where machine learning can be used b
   - [Feature Ranking](#ranking)
 - [Further Reading](#reading)
 
-<a name='The Pulsar Classification Problem'></a>
+<a name='intro'></a>
 
 <h3>I see dead... stars?</h3>
 
@@ -31,7 +31,19 @@ You can even <a href="http://www.jb.man.ac.uk/distance/frontiers/pulsars/section
 
 Pulsars are pretty interesting objects in their own right, they are used as a probe of stellar evolution as well as being used <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=3&cad=rja&uact=8&ved=2ahUKEwiG5PXzrvXgAhXHXRUIHZeICTYQFjACegQIAxAB&url=https%3A%2F%2Fwww.sciencedirect.com%2Fscience%2Farticle%2Fpii%2FS1387647304000909&usg=AOvVaw1IKp5W-f3gu3QCjmDCpBYR" target="_blank" rel="noopener noreferrer">to test general relativity</a> due to their extremely high densities. These days they're also used to detect and map <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=3&cad=rja&uact=8&ved=2ahUKEwjWt9XfrvXgAhXdTBUIHZUDCA8QFjACegQIARAB&url=https%3A%2F%2Fwww.skatelescope.org%2Fnewsandmedia%2Foutreachandeducation%2Fskawow%2Fgravitational-wave%2F&usg=AOvVaw2tEsK4ezAUVVM4K62KVnnW" target="_blank" rel="noopener noreferrer">gravitational wave signatures</a>. However, identifying them in the data streams from radio telescopes is not trivial. There are lots of man-made sources of radio frequency interference that can mimic the signals from pulsars. Classifying candidate data samples as <em>pulsar</em> or <em>not pulsar</em> is serious business.
 
-The individual pulses are all different, so astronomers stack them up and create an average integrated pulse profile to characterise a particular pulsar:
+<a name='pulsars'></a>
+
+<h3>The Pulsar Classification Problem</h3>
+
+In order to classify a data sample as a *pulsar* or *not a pulsar*, we need to be able to extract some information on the data sample that can characterise its class. The individual bursts of emission from a pulsar (i.e. the pulses) do not have a constant shape or amplitude, so individually they're not very useful for uniquely identifying a pulsar: 
+
+<div class="fig figcenter fighighlight">
+  <img src="images/oszi2.mpg">
+  <img src="images/aver0329.mpg">
+  <div class="figcaption"><a href="http://www.jb.man.ac.uk/distance/frontiers/pulsars/section2.html" target="_blank" rel="noopener noreferrer">Jodrell Bank Frontiers of Modern Astronomy</a></div>
+</div>
+
+Because the individual pulses are all different, astronomers stack them up and create an average integrated pulse profile to characterise a particular pulsar:
 
 
 <div class="fig figcenter fighighlight">
