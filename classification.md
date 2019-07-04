@@ -256,7 +256,7 @@ Suppose we have two target classes; these could be *cat* and *mouse*, or alterna
 An unlabelled (test) data sample from class one that has been correctly labelled is called a *true positive*, but a sample that has been incorrectly labelled is called a *false negative*; likewise, an unlabelled (test) data sample from class two that has been correctly labelled is called *true negative*, and a sample that has been incorrectly labelled is called a *false positive*. We use these names to describe the different types of errors and hence the performance metrics of the machine learning model.
 
 <div class="fig figcenter fighighlight">
-  <img width="400" height="320" src="/images/confusion.png"></div>
+  <img width="400" height="320" src="/images/confusion.png">
 </div>
 
 Some commonly used performance metrics are:
