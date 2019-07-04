@@ -110,6 +110,12 @@ print(feature_names)
 ['mean_int_pf' 'std_pf' 'ex_kurt_pf' 'skew_pf' 'mean_dm' 'std_dm'
 'kurt_dm' 'skew_dm']</p>
 
+<p style = "font-family:'Courier New',Courier,monospace;font-size:16px;font-style:normal;">
+['mean_int_pf' 'std_pf' 'ex_kurt_pf' 'skew_pf' 'mean_dm' 'std_dm'
+'kurt_dm' 'skew_dm']</p>
+
+<font face="courier">This is some text!</font>
+
 and we can check just how much data we're dealing with:
 
 ```python
