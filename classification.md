@@ -127,6 +127,25 @@ targets = df['class']
 
 <h3>Classifying Pulsars</h3>
 
+The objective for pulsar astronomers is to classify each data sample as **pulsar* or **not pulsar**. These two possible outcomes are known as the *target classes*. There are multiple machine learning algorithms that can be used for this kind of **binary classification** (i.e. only two possible target classes). The principles behind all of them are the same. 
+
+**Test data** The ultimate goal of building a classifier is to be able to use it on previously unseen data and recover the correct classifications for each data sample. This unseen dataset is typically referred to as your *test data*.
+
+**Training data** In order to build/train your classifier, you will need to provide a library of examples of each target class. For supervised learning, this dataset must be pre-labelled and it is typically referred to as your *training data*.
+
+**Validation data** The validation dataset is a subset of your training data. **It is not your test data**. You must not use your test data to train your classifier in any way.
+
+**Learning algorithm** The learning algorithm is whatever form of machine learning you have chosen to use for your dataset. You will often have to specify not only the form of the algorithm itself, but also the form of the **cost function** that the algorithm employs.
+
+**Machine learning model** The machine learning model is the output of your learning algorithm. You apply it to your **test data** to derive the predicted class of each test sample.
+
+
+<div class="fig figcenter fighighlight">
+  <img src="images/mldiagram.png">
+  <div class="figcaption"></div>
+</div>
+
+
 Then a bunch of scikit-learn libraries:
 
 ```python
@@ -146,12 +165,6 @@ I'm also using <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=w
 ```python
 import scikitplot as skplt
 ```
-
-<div class="fig figcenter fighighlight">
-  <img src="images/mldiagram.png">
-  <div class="figcaption"></div>
-</div>
-
 
 <a name='traintest'></a>
 
