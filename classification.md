@@ -3,6 +3,7 @@ Pulsar classification is a great example of where machine learning can be used b
 - [The Pulsar Classification Problem](#pulsars)
   - [Pulsar Data in Python](#pythonpulsars)
 - [Pulsar Classification](#classification)
+  - [Random Forest Classification](#randomforest)
   - [Train/Validation/Split](#traintest)
   - [Performance Metrics](#metrics)
   - [Feature Ranking](#ranking)
@@ -127,6 +128,44 @@ targets = df['class']
 
 <h3>Classifying Pulsars</h3>
 
+The objective for pulsar astronomers is to classify each data sample as **pulsar* or **not pulsar**. These two possible outcomes are known as the *target classes*. There are multiple machine learning algorithms that can be used for this kind of **binary classification** (i.e. only two possible target classes). The principles behind all of them are the same. 
+
+**Test data** The ultimate goal of building a classifier is to be able to use it on previously unseen data and recover the correct classifications for each data sample. This unseen dataset is typically referred to as your *test data*.
+
+**Training data** In order to build/train your classifier, you will need to provide a library of examples of each target class. For supervised learning, this dataset must be pre-labelled and it is typically referred to as your *training data*.
+
+**Validation data** The validation dataset is a subset of your training data. **It is not your test data**. You must not use your test data to train your classifier in any way.
+
+**Learning algorithm** The learning algorithm is whatever form of machine learning you have chosen to use for your dataset. You will often have to specify not only the form of the algorithm itself, but also the form of the **cost function** that the algorithm employs. Each machine learning model partitions feature space in a different way, driven by the goal of optimising the cost function.
+
+**Machine learning model** The machine learning model is the output of your learning algorithm. You apply it to your **test data** to derive the predicted class of each test sample.
+
+
+<div class="fig figcenter fighighlight">
+  <img src="images/mldiagram.png">
+  <div class="figcaption"></div>
+</div>
+
+In this example we'll use a random forest machine learning algorithm to classify the HTRU2 pulsar dataset. A random forest is a learning algorithm constructed from multiple decision trees. 
+
+<a name='randomforest'></a>
+
+<h4>Decision Trees & Random Forests</h4>
+
+A decision tree classifies data samples using a hierarchical set of data partitions in feature space. An example of one such partition could be claasifying an animal as a mouse or a cat based on length data. Here *length* is our feature and our target classes are *cat* and *mouse*. If we draw a partition such that <font face="courier new">(length>10cm) = 'cat'</font> and <font face="courier new">(length<10cm) = 'mouse'</font> we have implemented a decision tree with a single node. 
+
+<div class="fig figcenter fighighlight">
+  <img src="images/decisionnode.png">
+  <div class="figcaption">Lyon et al. 2016</div>
+</div>
+
+In reality if we created a training dataset by measuring 1000 cats and 1000 mice we would find that there was a distribution of lengths for each class, and that 10cm might not be the optimal partition value. The machine learning part of a decision tree is learning where that optimal value is. If we have multiple features, say *length*, *height* and *weight*, the algorithm will learn the best split point for all three.
+
+<div class="fig figcenter fighighlight">
+  <img src="images/splitpoints.png">
+  <div class="figcaption">Lyon et al. 2016</div>
+</div>
+
 Then a bunch of scikit-learn libraries:
 
 ```python
@@ -146,12 +185,6 @@ I'm also using <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=w
 ```python
 import scikitplot as skplt
 ```
-
-<div class="fig figcenter fighighlight">
-  <img src="images/mldiagram">
-  <div class="figcaption"></div>
-</div>
-
 
 <a name='traintest'></a>
 
