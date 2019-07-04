@@ -49,7 +49,7 @@ In order to classify a data sample as a *pulsar* or *not a pulsar*, we need to b
 <div class="fig figcenter fighighlight">
   <video width="320" height="240" autoplay loop muted><source src="/images/oszi2.mpg"></video>
   <video width="320" height="240" autoplay loop muted><source src="/images/aver0329.mpg"></video>
-  <div class="figcaption"><a href="http://www.jb.man.ac.uk/distance/frontiers/pulsars/section2.html" target="_blank" rel="noopener noreferrer">Frontiers of Modern Astronomy - Jodrell Bank Observatory</a></div>
+  <div class="figcaption"><a href="http://www.jb.man.ac.uk/distance/frontiers/pulsars/section2.html" target="_blank" rel="noopener noreferrer">Frontiers of Modern Astronomy - Jodrell Bank Observatory</a>These animations show (real) radio emission from pulsar PSR B0329+54, which has a period of 714 milliseconds.</div>
 </div>
 
 Because the individual pulses are all different, astronomers stack them up and create an average integrated pulse profile to characterise a particular pulsar:
