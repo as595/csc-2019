@@ -249,7 +249,7 @@ There are a variety of ways to evaluate the performance of a machine learning mo
 Suppose we have two target classes; these could be *cat* and *mouse*, or alternatively *pulsar* and *non-pulsar*, but here I'm just going to call them *positive* and *negative*. When we apply a machine learning model to the unlabelled test data composed of these classes it fits a split that looks like this:
 
 <div class="fig figcenter fighighlight">
-  <img src="/images/decisionrule2.png"></div>
+  <img src="/images/decisionrule2.png">
   <div class="figcaption">Image credit: Rob Lyon</div>
 </div>
 
