@@ -272,7 +272,7 @@ Some commonly used performance metrics are:
 
 **F1-score** A measure of accuracy that considers both precision and recall.
 
-<center>$latex {\rm F1score} = 2\frac{\rm Precision \times Re-call}{\rm Precision + Re-call}$</center>
+<center>$latex {\rm F1score} = 2\frac{\rm Precision \times Recall}{\rm Precision + Recall}$</center>
 
 There are many other performance metrics, which are adapted to suit particular classification problems - for example if you are looking for a rare type of object in an imbalanced dataset. However, here we will only consider these three common metrics. 
 
