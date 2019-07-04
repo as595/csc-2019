@@ -39,15 +39,6 @@ which in the case of a diagonal covariance matrix reduces to
 However, if we start to add in non-zero values to the other elements of the covariance matrix then this will no longer be the case and the <em>y</em>-value at one position will affect the <em>y</em>-value at another.
 
 
-The second of these has a particularly nice figure showing the effect of covariate Gaussian noise. It looks like this:
-
-<div class="fig figcenter fighighlight">
-  <img src="https://allofyourbases.files.wordpress.com/2017/08/roberts_fig5.png">
-  <div class="figcaption">Figure 5 from Roberts et al. 2012.</div>
-</div>
-
-Here I'm going to explain how to recreate this figure using Python.
-
 <a name='covarpython'></a>
 
 <h4>Covariate Gaussian Noise in Python</h4>
@@ -697,3 +688,12 @@ This is a very brief explanation of covariate Gaussian noise. For a better and m
 	<li><a href="http://www.gaussianprocess.org" target="_blank" rel="noopener">Gaussian Processes for Machine Learning</a>, Carl Edward Rasmussen and Chris Williams, the MIT Press</li>
 	<li><a href="http://www.robots.ox.ac.uk/~sjrob/Pubs/philTransA_2012.pdf" target="_blank" rel="noopener">Gaussian processes for time-series modelling</a>, S. Roberts, M. Osborne, M. Ebden, S. Reece, N. Gibson and S. Aigrain, Phil. Trans. R. Soc. A 2013 371, 20110550</li>
 </ul>
+
+The second of these has a particularly nice figure showing the effect of covariate Gaussian noise. It looks like this:
+
+<div class="fig figcenter fighighlight">
+  <img src="https://allofyourbases.files.wordpress.com/2017/08/roberts_fig5.png">
+  <div class="figcaption">Figure 5 from Roberts et al. 2012.</div>
+</div>
+
+and you can see that it is the same figure we created above.
