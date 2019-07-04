@@ -38,8 +38,10 @@ Pulsars are pretty interesting objects in their own right, they are used as a pr
 In order to classify a data sample as a *pulsar* or *not a pulsar*, we need to be able to extract some information on the data sample that can characterise its class. The individual bursts of emission from a pulsar (i.e. the pulses) do not have a constant shape or amplitude, so individually they're not very useful for uniquely identifying a pulsar: 
 
 <div class="fig figcenter fighighlight">
-  <img src="images/oszi2.mpg">
-  <img src="images/aver0329.mpg">
+  <video width="320" height="240" controls>
+  <source src="images/oszi2.mpg">
+  <source src="images/aver0329.mpg">
+  <video>
   <div class="figcaption"><a href="http://www.jb.man.ac.uk/distance/frontiers/pulsars/section2.html" target="_blank" rel="noopener noreferrer">Jodrell Bank Frontiers of Modern Astronomy</a></div>
 </div>
 
