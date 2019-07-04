@@ -47,7 +47,7 @@ Additionally the pulse will arrive at different times across different radio fre
 
 
 <div class="fig figcenter fighighlight">
-  <img src="https://allofyourbases.files.wordpress.com/2019/03/dispersion.png">
+  <img src="https://allofyourbases.files.wordpress.com/2019/03/dispersion.png" width="368" height="219" />
   <div class="figcaption"><a href="https://www.cv.nrao.edu/~sransom/web/Ch6.html" target="_blank" rel="noopener noreferrer">Essentials of Radio Astronomy</a></div>
 </div>
 
@@ -56,6 +56,7 @@ Astronomers fit for the shape of the delay in order to compensate for its effect
 <img class=" size-full wp-image-3545 aligncenter" src="https://allofyourbases.files.wordpress.com/2019/03/dm_snr.png" alt="dm_snr" width="368" height="219" />
 
 <div class="fig figcenter fighighlight">
+  <img src="https://allofyourbases.files.wordpress.com/2019/03/dm_snr.png">
   <img src="https://allofyourbases.files.wordpress.com/2019/03/dm_snr.png">
   <div class="figcaption"></div>
 </div>
