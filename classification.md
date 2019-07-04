@@ -47,8 +47,8 @@ Pulsars are pretty interesting objects in their own right, they are used as a pr
 In order to classify a data sample as a *pulsar* or *not a pulsar*, we need to be able to extract some information on the data sample that can characterise its class. The individual bursts of emission from a pulsar (i.e. the pulses) do not have a constant shape or amplitude, so individually they're not very useful for uniquely identifying a pulsar.
 
 <div class="fig figcenter fighighlight">
-  <video width="320" height="240" autoplay loop><source src="/images/oszi2.mpg"></video>
-  <video width="320" height="240" autoplay loop><source src="/images/aver0329.mpg"></video>
+  <video width="320" height="240" autoplay loop muted><source src="/images/oszi2.mpg"></video>
+  <video width="320" height="240" autoplay loop muted><source src="/images/aver0329.mpg"></video>
   <div class="figcaption"><a href="https://www.cv.nrao.edu/~sransom/web/Ch6.html" target="_blank" rel="noopener noreferrer">Essentials of Radio Astronomy</a></div>
 </div>
 
@@ -168,7 +168,7 @@ In this example we'll use a random forest machine learning algorithm to classify
 A **decision tree** classifies data samples using a hierarchical set of data partitions in feature space. An example of one such partition could be claasifying an animal as a mouse or a cat based on length data. Here *length* is our feature and our target classes are *cat* and *mouse*. If we draw a partition such that <font face="courier new">(length>10cm) = 'cat'</font> and <font face="courier new">(length<10cm) = 'mouse'</font> we have implemented a decision tree with a single node. 
 
 <div class="fig figcenter fighighlight">
-  <img width="300" height="240" src="/images/decisionnode.png">
+  <img width="400" height="200" src="/images/decisionnode.png">
   <div class="figcaption">Lyon et al. 2016</div>
 </div>
 
