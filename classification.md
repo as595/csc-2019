@@ -148,7 +148,7 @@ import scikitplot as skplt
 ```
 
 <div class="fig figcenter fighighlight">
-  <img src="images/mldiagram">
+  <img src="images/mldiagram.png">
   <div class="figcaption"></div>
 </div>
 
