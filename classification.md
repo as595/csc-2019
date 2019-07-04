@@ -306,10 +306,12 @@ print("Mean AUC Score - Random Forest: ", rfc_cv_score.mean())
 
 <font face="courier new">
 === Confusion Matrix ===</font>
+
 <font face="courier new">[[5327   35]</font>
+
 <font face="courier new">[  93  452]]</font>
 
-=== Classification Report ===
+<font face="courier new">=== Classification Report ===
 precision recall f1-score support
 
 Non Pulsar 0.98 0.99 0.99 5362
