@@ -36,20 +36,37 @@ Pulsars are pretty interesting objects in their own right, they are used as a pr
 
 The individual pulses are all different, so astronomers stack them up and create an average integrated pulse profile to characterise a particular pulsar:
 
-[caption id="attachment_3543" align="aligncenter" width="302"]<img class="  wp-image-3543 aligncenter" src="https://allofyourbases.files.wordpress.com/2019/03/pulsestack-e1552071632736.gif" alt="pulsestack" width="302" height="477" /> <a href="https://www.cv.nrao.edu/~sransom/web/Ch6.html" target="_blank" rel="noopener noreferrer">Essentials of Radio Astronomy</a>[/caption]
+
+<div class="fig figcenter fighighlight">
+  <img src="https://allofyourbases.files.wordpress.com/2019/03/pulsestack-e1552071632736.gif">
+  <div class="figcaption"><a href="https://www.cv.nrao.edu/~sransom/web/Ch6.html" target="_blank" rel="noopener noreferrer">Essentials of Radio Astronomy</a></div>
+</div>
+
 
 Additionally the pulse will arrive at different times across different radio frequencies. The delay from frequency to frequency is caused by the ionised inter-stellar medium and is known as the <em><strong>dispersion</strong></em>. It looks like this:
 
-[caption id="attachment_3544" align="aligncenter" width="413"]<img class="  wp-image-3544 aligncenter" src="https://allofyourbases.files.wordpress.com/2019/03/dispersion.png" alt="dispersion" width="413" height="525" /> <a href="https://www.cv.nrao.edu/~sransom/web/Ch6.html" target="_blank" rel="noopener noreferrer">Essentials of Radio Astronomy</a>[/caption]
+
+<div class="fig figcenter fighighlight">
+  <img src="https://allofyourbases.files.wordpress.com/2019/03/dispersion.png">
+  <div class="figcaption"><a href="https://www.cv.nrao.edu/~sransom/web/Ch6.html" target="_blank" rel="noopener noreferrer">Essentials of Radio Astronomy</a></div>
+</div>
 
 Astronomers fit for the shape of the delay in order to compensate for its effect, but there's always an uncertainty associated with the fit. That is expressed in the DM-SNR ("dispersion-measure-signal-to-noise-ratio") curve, which looks like this:
 
 <img class=" size-full wp-image-3545 aligncenter" src="https://allofyourbases.files.wordpress.com/2019/03/dm_snr.png" alt="dm_snr" width="368" height="219" />
 
+<div class="fig figcenter fighighlight">
+  <img src="https://allofyourbases.files.wordpress.com/2019/03/dm_snr.png">
+  <div class="figcaption"></div>
+</div>
+
 When you put these two curves together it means that for each pulsar candidate there are <strong>eight numerical features</strong> that can be extracted as standard: four from the integrated pulse profile and four from the DM-SNR curve:
 
-<img class="aligncenter size-full wp-image-3538" src="https://allofyourbases.files.wordpress.com/2019/03/pulsar_features.png?w=1052" alt="pulsar_features.png" width="526" height="352" />
-<h3></h3>
+<div class="fig figcenter fighighlight">
+  <img src="https://allofyourbases.files.wordpress.com/2019/03/pulsar_features.png">
+  <div class="figcaption"></div>
+</div>
+
 <h3>Getting set-up</h3>
 First some general libraries:
 
