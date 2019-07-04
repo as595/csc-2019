@@ -243,6 +243,15 @@ rfc_predict = RFC.predict(X_test)
 <h4>Performance Metrics</h4>
 
 So how did we do? We need to evaluate the performance of our classifier.
+
+There are a variety of ways to evaluate the performance of a machine learning model. Which one you choose should depend on the objective of your classification. Before we look at some common performance metrics we first need to define a few terms.
+
+Suppose we have two target classes; these could be *cat* and *mouse*, or alternatively *pulsar* and *non-pulsar*, but here I'm just going to call them *positive* and *negative*. 
+
+
+
+**Precision** The fraction of true postives 
+
 A good first step is to evaluate the <a href="https://www.openml.org/a/estimation-procedures/1" target="_blank" rel="noopener noreferrer">cross-validation</a>. This will tell us how well our machine learning model generalises, i.e. whether we have over-fitted the training data.
 
 ```python
