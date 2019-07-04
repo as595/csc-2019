@@ -306,7 +306,7 @@ pl.show()
 ```
 
 <div class="fig figcenter fighighlight">
-  <img width= "500" height = "350" src="https://allofyourbases.files.wordpress.com/2017/08/gpm1.png" alt="GPM1.png">
+  <img width= "700" height = "350" src="https://allofyourbases.files.wordpress.com/2017/08/gpm1.png" alt="GPM1.png">
   <div class="figcaption"></div>
 </div>
 
