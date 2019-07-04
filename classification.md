@@ -48,6 +48,7 @@ In order to classify a data sample as a *pulsar* or *not a pulsar*, we need to b
 
 <div class="fig figcenter fighighlight">
   <video width="320" height="240" autostart="true"><source src="/images/oszi2.mpg"></video>
+  <video width="320" height="240" autostart="true"><source src="/images/aver0329.mpg"></video>
   <div class="figcaption"><a href="https://www.cv.nrao.edu/~sransom/web/Ch6.html" target="_blank" rel="noopener noreferrer">Essentials of Radio Astronomy</a></div>
 </div>
 
