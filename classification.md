@@ -167,14 +167,14 @@ In this example we'll use a random forest machine learning algorithm to classify
 A **decision tree** classifies data samples using a hierarchical set of data partitions in feature space. An example of one such partition could be claasifying an animal as a mouse or a cat based on length data. Here *length* is our feature and our target classes are *cat* and *mouse*. If we draw a partition such that <font face="courier new">(length>10cm) = 'cat'</font> and <font face="courier new">(length<10cm) = 'mouse'</font> we have implemented a decision tree with a single node. 
 
 <div class="fig figcenter fighighlight">
-  <img width="120" height="120" src="/images/decisionnode.png">
+  <img width="300" height="240" src="/images/decisionnode.png">
   <div class="figcaption">Lyon et al. 2016</div>
 </div>
 
 In reality if we created a training dataset by measuring 1000 cats and 1000 mice we would find that there was a distribution of lengths for each class, and that 10cm might not be the optimal partition value. The machine learning part of a decision tree is learning where that optimal value is. If we have multiple features, say *length*, *height* and *weight*, the algorithm will learn the best split point for all three.
 
 <div class="fig figcenter fighighlight">
-  <img  width="360" height="120" src="/images/splitpoints.png">
+  <img  width="500" height="240" src="/images/splitpoints.png">
   <div class="figcaption">Lyon et al. 2016</div>
 </div>
 
