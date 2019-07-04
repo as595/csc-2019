@@ -90,7 +90,7 @@ and use it to read the CSV file:
 df = pd.read_csv('data/pulsar.csv')
 ```
 
-You can take a look at the names of the features in the file like this (<code>pf</code> = integrated profile & <code>dm</code> = DM-SNR curve):
+You can take a look at the names of the features in the file like this:
 
 ```python
 feature_names = df.columns.values[0:-1]
@@ -101,6 +101,8 @@ print(feature_names)
 ['mean_int_pf' 'std_pf' 'ex_kurt_pf' 'skew_pf' 'mean_dm' 'std_dm'
 'kurt_dm' 'skew_dm']</p>
 
+(<code>pf</code> = integrated profile & <code>dm</code> = DM-SNR curve)
+
 and we can check just how much data we're dealing with:
 
 ```python
@@ -109,7 +111,7 @@ print ('Dataset has %d rows and %d columns including features and labels'%(df.sh
 
 <font face="courier new">Dataset has 17898 rows and 9 columns including features and labels</font>
 
-We're going to start by separating the numerical feature data from the class labels for all the candidates. To get the feature data on its own we can just strip off the column containing the class labels:
+To get the feature data on its own we can just strip off the column containing the class labels:
 
 ```python
 features = df.drop('class', axis=1)
@@ -145,7 +147,10 @@ I'm also using <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=w
 import scikitplot as skplt
 ```
 
-
+<div class="fig figcenter fighighlight">
+  <img src="images/mldiagram">
+  <div class="figcaption"></div>
+</div>
 
 
 <a name='traintest'></a>
