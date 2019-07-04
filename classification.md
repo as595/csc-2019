@@ -110,8 +110,6 @@ print(feature_names)
 ['mean_int_pf' 'std_pf' 'ex_kurt_pf' 'skew_pf' 'mean_dm' 'std_dm'
 'kurt_dm' 'skew_dm']</p>
 
-<font face="courier new">This is some text!</font>
-
 and we can check just how much data we're dealing with:
 
 ```python
@@ -156,13 +154,13 @@ RFC = RandomForestClassifier(n_jobs=2,n_estimators=10)
 RFC.fit(X_train,y_train)
 ```
 
-<code>RandomForestClassifier(bootstrap=True, class_weight=None, criterion='gini',
+<font face="courier new">RandomForestClassifier(bootstrap=True, class_weight=None, criterion='gini',
 max_depth=None, max_features='auto', max_leaf_nodes=None,
 min_impurity_decrease=0.0, min_impurity_split=None,
 min_samples_leaf=1, min_samples_split=2,
 min_weight_fraction_leaf=0.0, n_estimators=10, n_jobs=2,
 oob_score=False, random_state=None, verbose=0,
-warm_start=False)</code>
+warm_start=False)</font>
 
 We can then used the trained classifier to predict the label for the test data that we split out earlier:
 
@@ -196,7 +194,8 @@ print("=== Mean AUC Score ===")
 print("Mean AUC Score - Random Forest: ", rfc_cv_score.mean())
 ```
 
-<code>=== Confusion Matrix ===
+<font face="courier new">
+=== Confusion Matrix ===
 [[5327   35]
 [  93  452]]
 
@@ -215,7 +214,7 @@ weighted avg 0.98 0.98 0.98 5907
 0.96336963 0.95761145 0.96597591 0.96716753]
 
 === Mean AUC Score ===
-Mean AUC Score - Random Forest: 0.956677415292086</code>
+Mean AUC Score - Random Forest: 0.956677415292086</font>
 
 We can make a more visual representation of the confusion matrix using the scikit-plot library. To do this we need to know the predictions from our cross validation, rather than the <a href="https://developers.google.com/machine-learning/crash-course/classification/roc-and-auc" target="_blank" rel="noopener noreferrer">Area Under Curve (AUC)</a> value:
 
