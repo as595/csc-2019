@@ -1,3 +1,9 @@
+---
+layout: page
+mathjax: true
+permalink: /classification/
+---
+
 Pulsar classification is a great example of where machine learning can be used beneficially in astrophysics. It's not the most straightforward classification problem, but here I'm going to outline the basics using the scikit-learn random forest classifier. This post was inspired by <a href="http://www.scienceguyrob.com/">Rob Lyon</a>'s pulsar classification tutorials in the <a href="https://github.com/astro4dev/OAD-Data-Science-Toolkit/tree/master/Teaching%20Materials/Machine%20Learning/Supervised%20Learning/Examples/PPC">IAU OAD Data Science Toolkit</a>.
 
 - [The Pulsar Classification Problem](#pulsars)
@@ -39,6 +45,11 @@ Pulsars are pretty interesting objects in their own right, they are used as a pr
 <h3>The Pulsar Classification Problem</h3>
 
 In order to classify a data sample as a *pulsar* or *not a pulsar*, we need to be able to extract some information on the data sample that can characterise its class. The individual bursts of emission from a pulsar (i.e. the pulses) do not have a constant shape or amplitude, so individually they're not very useful for uniquely identifying a pulsar.
+
+<div class="fig figcenter fighighlight">
+  <video src="/images/oszi2.mpg">
+  <div class="figcaption"><a href="https://www.cv.nrao.edu/~sransom/web/Ch6.html" target="_blank" rel="noopener noreferrer">Essentials of Radio Astronomy</a></div>
+</div>
 
 Because the individual pulses are all different, astronomers stack them up and create an average integrated pulse profile to characterise a particular pulsar:
 
@@ -143,7 +154,7 @@ The objective for pulsar astronomers is to classify each data sample as **pulsar
 
 
 <div class="fig figcenter fighighlight">
-  <img src="images/mldiagram.png">
+  <img src="/images/mldiagram.png">
   <div class="figcaption"></div>
 </div>
 
@@ -156,14 +167,14 @@ In this example we'll use a random forest machine learning algorithm to classify
 A **decision tree** classifies data samples using a hierarchical set of data partitions in feature space. An example of one such partition could be claasifying an animal as a mouse or a cat based on length data. Here *length* is our feature and our target classes are *cat* and *mouse*. If we draw a partition such that <font face="courier new">(length>10cm) = 'cat'</font> and <font face="courier new">(length<10cm) = 'mouse'</font> we have implemented a decision tree with a single node. 
 
 <div class="fig figcenter fighighlight">
-  <img src="images/decisionnode.png">
+  <img src="/images/decisionnode.png">
   <div class="figcaption">Lyon et al. 2016</div>
 </div>
 
 In reality if we created a training dataset by measuring 1000 cats and 1000 mice we would find that there was a distribution of lengths for each class, and that 10cm might not be the optimal partition value. The machine learning part of a decision tree is learning where that optimal value is. If we have multiple features, say *length*, *height* and *weight*, the algorithm will learn the best split point for all three.
 
 <div class="fig figcenter fighighlight">
-  <img src="images/splitpoints.png">
+  <img src="/images/splitpoints.png">
   <div class="figcaption">Lyon et al. 2016</div>
 </div>
 
