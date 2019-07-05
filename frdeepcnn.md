@@ -1,4 +1,9 @@
 
+---
+layout: page
+mathjax: true
+permalink: /frdeepcnn/
+---
 
 ```python
 import matplotlib.pyplot as plt
