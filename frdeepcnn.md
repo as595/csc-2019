@@ -1,9 +1,11 @@
-
 ---
 layout: page
 mathjax: true
 permalink: /frdeepcnn/
 ---
+
+
+Import the standard libraries:
 
 ```python
 import matplotlib.pyplot as plt
