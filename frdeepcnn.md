@@ -7,6 +7,7 @@ permalink: /frdeepcnn/
 - [ConvolutionalNeural Networks](#cnns)
   - [Layers](#layers)
   - [Back-propagation](#backprop)
+  - [LeNET/AlexNET](#lenet)
 - [CNNs in Python](#python)
   - [Defining the architecture](#arch)
   
@@ -58,6 +59,12 @@ The architecture of a CNN refers to the order in whcih these layers are arranged
 <a name="backprop"></a>
 
 <h4>Back-propagation</h4>
+
+
+<a name="layers"></a>
+
+<h4>LeNET/AlexNET</h4>
+
 
 
 <a name="python"></a>
