@@ -13,6 +13,37 @@ The simplest (and perhaps most naive) method of using images for classification 
 
 One of the very useful things about convolutional neural networks (CNNs) is that they don't require us to flatten our input data and we can maintain the dimensionality of our input all the way through. In order to do this, CNNs are not composed of individual neurons but instead are comprised of functional *layers*, which have learnable weights associated with them.
 
+<h3>Layers</h3>
+
+The typical layers you will find in a convolutional neural network are:
+
+**Input Layer** This is the input data sample. If this is a normal image it could have dimensions of 50x50x3, where the image has 50 pixels on a side and the 3 refers to the RGB. If the input was a spectral image from a telescope, it might have dimensions 50x50x128, where the image has 50 pixels on a side and 128 spectral (frequency) channels. 
+
+**Convolutional Layer** Convolutional layers have height and width dimensions that are the same as their input *(see note below)* and a depth that is equal to the number of convolutional filters they apply. For example, the RGB image with dimensions of 50x50x3 could be fed into a convolutional layer that used 6 filters, each with dimensions of 5x5. The output would be 50x50x6. Note that there is no multiplication for the number of channels in the input image: convolutional layers apply their filters to each channel separately and then *sum the results*. From the view point of a convolutional layer, all of the input channels in the data sample are interchangeable and equally weighted. 
+
+**Activation Layer** The purpose of the activation layer is to introduce *non-linearity* into the network. The most popular activation layer function is the ReLU (rectified linear unit), which applies a thresholding function <code>max(0,x)</code>, where <code>x</code> is the output from the convolutional layer. Convolutional layers are always followed by activation layers.
+
+<div class="fig figcenter fighighlight">
+  <img width="300" height="200" src="/images/neuralnet.png">
+  <div class="figcaption">ReLU activation function</div>
+</div>
+
+**Pooling Layer** Pooling layers reduce the volume of hyper-parameters in the CNN by downsampling the data at various stages in the network. Typical examples include the max-pooling layer, which selects the maximum-valued output within a user-defined area, or the average-pooling layer, which takes the averge over a user-defined area. 
+
+<div class="fig figcenter fighighlight">
+  <img width="600" height="300" src="/images/neuralnet.png">
+  <div class="figcaption">Max Pooling</div>
+</div>
+
+
+**Fully Connected Layer** 
+
+**Output Layer**
+
+The architecture of a CNN refers to the order in whcih these layers are arranged and the dimensionality of each layer. All of the layers apart from the input and output layers are referred to as *hidden layers*. They're not really hidden if you're the one building the CNN in the first place, but if you're a user who just wants to classify an image all you'll see are the input and output - the rest is hidden from you, hence the name.
+
+
+
 
 
 Import the standard libraries:
