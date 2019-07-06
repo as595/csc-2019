@@ -31,7 +31,7 @@ The typical layers you will find in a convolutional neural network are:
 **Pooling Layer** Pooling layers reduce the volume of hyper-parameters in the CNN by downsampling the data at various stages in the network. Typical examples include the max-pooling layer, which selects the maximum-valued output within a user-defined area, or the average-pooling layer, which takes the averge over a user-defined area. 
 
 <div class="fig figcenter fighighlight">
-  <img width="600" height="300" src="/images/maxpool.png">
+  <img width="500" height="250" src="/images/maxpool.png">
   <div class="figcaption">Max Pooling</div>
 </div>
 
