@@ -71,14 +71,16 @@ The architecture of a CNN refers to the order in whcih these layers are arranged
 
 <h3>CNNs in Python</h3>
 
+There are a variety of different ways to construct CNNs in Python. Popular options include the tensorflow library, the keras library and the PyTorch library. Here I'm going to use PyTorch, whcih I find to be the most straightforward and intuitive option for constructing networks. 
 
-
-Import the standard libraries:
+To start with, let's import some standard libraries. We'll use these later.
 
 ```python
 import matplotlib.pyplot as plt
 import numpy as np
 ```
+
+Then we can start to import different tools from the PyTorch library:
 
 ```python
 import torch
@@ -96,9 +98,51 @@ import torch.nn.functional as F
 import torch.optim as optim
 ```
 
+I'm going to be using a training dataset of radio galaxies, with images from the FIRST radio survey. This training set has been made into a PyTorch dataset, so it's super easy to use.
+
 ```python
 from FRDEEP import FRDEEPF
 ```
+
+
+<a name="architecture"></a>
+<h4>Define the architecture</h4>
+
+The first thing we can do is to define the architecture of our CNN. This architecture has two convolutional layers, each with a ReLU activation function, followed by a max-pooling layer; these layers are then followed by two fully-connected layers, each with a ReLU activation function, and a final output layer. 
+
+
+There's no padding implemented in the convolutional layers, so the outputs have smaller height and width than the output. The difference in size is the dimenaion of the convolutional filter minus one. For example, if we used a convolutional filter with dimensions 5x5 and an input image with a height of 150 pixels, the output would be 2 pixels smaller at the top and 2 pixels smaller at the bottom - a total of 5 - 1 = 4 pixels smaller - so the output would have a height of 146 pixels.
+
+```python
+class Net(nn.Module):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.conv1 = nn.Conv2d(1, 6, 5)
+        self.pool = nn.MaxPool2d(2, 2)
+        self.conv2 = nn.Conv2d(6, 16, 5)
+        self.fc1 = nn.Linear(16 * 34 * 34, 120)
+        self.fc2 = nn.Linear(120, 84)
+        self.fc3 = nn.Linear(84, 10)
+
+    def forward(self, x):
+        # conv1 output width: input_width - (kernel_size - 1) => 150 - (5-1) = 146
+        # pool 1 output width: int(input_width/2) => 73
+        x = self.pool(F.relu(self.conv1(x)))
+        # conv2 output width: input_width - (kernel_size - 1) => 73 - (5-1) = 69
+        # pool 2 output width: int(input_width/2) => 34
+        x = self.pool(F.relu(self.conv2(x)))  
+        x = x.view(-1, 16 * 34 * 34)
+        x = F.relu(self.fc1(x))
+        x = F.relu(self.fc2(x))
+        x = self.fc3(x)
+        return x
+```
+
+```python
+net = Net()
+summary(net,(1,150,150))
+```
+
 
 ```python
 transform = transforms.Compose(
@@ -144,35 +188,6 @@ imshow(torchvision.utils.make_grid(images))
 print(' '.join('%5s' % classes[labels[j]] for j in range(batch_size_train)))
 ```
 
-```python
-class Net(nn.Module):
-    def __init__(self):
-        super(Net, self).__init__()
-        self.conv1 = nn.Conv2d(1, 6, 5)
-        self.pool = nn.MaxPool2d(2, 2)
-        self.conv2 = nn.Conv2d(6, 16, 5)
-        self.fc1 = nn.Linear(16 * 34 * 34, 120)
-        self.fc2 = nn.Linear(120, 84)
-        self.fc3 = nn.Linear(84, 10)
-
-    def forward(self, x):
-        # conv1 output width: input_width - (kernel_size - 1) => 150 - (5-1) = 146
-        # pool 1 output width: int(input_width/2) => 73
-        x = self.pool(F.relu(self.conv1(x)))
-        # conv2 output width: input_width - (kernel_size - 1) => 73 - (5-1) = 69
-        # pool 2 output width: int(input_width/2) => 34
-        x = self.pool(F.relu(self.conv2(x)))  
-        x = x.view(-1, 16 * 34 * 34)
-        x = F.relu(self.fc1(x))
-        x = F.relu(self.fc2(x))
-        x = self.fc3(x)
-        return x
-```
-
-```python
-net = Net()
-summary(net,(1,150,150))
-```
 
 ```python
 criterion = nn.CrossEntropyLoss()
