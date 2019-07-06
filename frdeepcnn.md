@@ -5,6 +5,12 @@ permalink: /frdeepcnn/
 ---
 
 
+<div class="fig figcenter fighighlight">
+  <img src="/images/neuralnet.png">
+  <div class="figcaption">Neural net</div>
+</div>
+
+
 Import the standard libraries:
 
 ```python
