@@ -4,11 +4,15 @@ mathjax: true
 permalink: /frdeepcnn/
 ---
 
+The simplest (and perhaps most naive) method of using images for classification would be to take the value of every pixel as a feature and feed them into a machine learning algorithm. One problem that would quickly become obvious is the number of hyper-parameters that would need to be trained by the algorithm. For example if we built a standard neural net to classify an image then we would have to unfold the image into a single vector, i.e. if the image had dimensions of 50 pixels x 50 pixels and it was a standard RGB (3 colour) image, then the input layer of our neural network would have a size of 50x50x3 = 7500. If our image was 500 x 500 pixels then it would be 750,000... 
 
 <div class="fig figcenter fighighlight">
   <img src="/images/neuralnet.png">
   <div class="figcaption">Neural net</div>
 </div>
+
+One of the very useful things about convolutional neural networks (CNNs) is that they don't require us to flatten our input data and we can maintain the dimensionality of our input all the way through. In order to do this, CNNs are not composed of individual neurons but instead are comprised of functional *layers*, which have learnable weights associated with them.
+
 
 
 Import the standard libraries:
