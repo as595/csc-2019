@@ -21,6 +21,8 @@ The typical layers you will find in a convolutional neural network are:
 
 **Convolutional Layer** Convolutional layers have height and width dimensions that are the same as their input *(see note below)* and a depth that is equal to the number of convolutional filters they apply. For example, the RGB image with dimensions of 50x50x3 could be fed into a convolutional layer that used 6 filters, each with dimensions of 5x5. The output would be 50x50x6. Note that there is no multiplication for the number of channels in the input image: convolutional layers apply their filters to each channel separately and then *sum the results*. From the view point of a convolutional layer, all of the input channels in the data sample are interchangeable and equally weighted. 
 
+*Note: when the convolutional layer is applied to a data sample there is usually an option to implement *padding* or not. Padding provides additional zero-valued pixels around the border of the input image which allows the output to have the same height x width dimensions as the input. If padding is not applied then the output is smaller than the input.*
+
 **Activation Layer** The purpose of the activation layer is to introduce *non-linearity* into the network. The most popular activation layer function is the ReLU (rectified linear unit), which applies a thresholding function <code>max(0,x)</code>, where <code>x</code> is the output from the convolutional layer. Convolutional layers are always followed by activation layers.
 
 <div class="fig figcenter fighighlight">
