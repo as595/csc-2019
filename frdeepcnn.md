@@ -4,6 +4,15 @@ mathjax: true
 permalink: /frdeepcnn/
 ---
 
+- [ConvolutionalNeural Networks](#cnns)
+  - [Layers](#layers)
+  - [Back-propagation](#backprop)
+- [CNNs in Python](#python)
+  - [Defining the architecture](#arch)
+  
+  
+<a name="cnns"></a>
+
 The simplest (and perhaps most naive) method of using images for classification would be to take the value of every pixel as a feature and feed them into a machine learning algorithm. One problem that would quickly become obvious is the number of hyper-parameters that would need to be trained by the algorithm. For example if we built a standard neural net to classify an image then we would have to unfold the image into a single vector, i.e. if the image had dimensions of 50 pixels x 50 pixels and it was a standard RGB (3 colour) image, then the input layer of our neural network would have a size of 50x50x3 = 7500. If our image was 500 x 500 pixels then it would be 750,000... 
 
 <div class="fig figcenter fighighlight">
@@ -12,6 +21,8 @@ The simplest (and perhaps most naive) method of using images for classification 
 </div>
 
 One of the very useful things about convolutional neural networks (CNNs) is that they don't require us to flatten our input data and we can maintain the dimensionality of our input all the way through. In order to do this, CNNs are not composed of individual neurons but instead are comprised of functional *layers*, which have learnable weights associated with them.
+
+<a name="layers"></a>
 
 <h3>Layers</h3>
 
@@ -44,7 +55,14 @@ The typical layers you will find in a convolutional neural network are:
 
 The architecture of a CNN refers to the order in whcih these layers are arranged and the dimensionality of each layer. All of the layers apart from the input and output layers are referred to as *hidden layers*. They're not really hidden if you're the one building the CNN in the first place, but if you're a user who just wants to classify an image all you'll see are the input and output - the rest is hidden from you, hence the name.
 
+<a name="backprop"></a>
 
+<h3>Back-propagation</h3>
+
+
+<a name="python"></a>
+
+<h4>CNNs in Python</h4>
 
 
 
