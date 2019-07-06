@@ -24,7 +24,7 @@ One of the very useful things about convolutional neural networks (CNNs) is that
 
 <a name="layers"></a>
 
-<h3>Layers</h3>
+<h4>Layers</h4>
 
 The typical layers you will find in a convolutional neural network are:
 
@@ -57,12 +57,12 @@ The architecture of a CNN refers to the order in whcih these layers are arranged
 
 <a name="backprop"></a>
 
-<h3>Back-propagation</h3>
+<h4>Back-propagation</h4>
 
 
 <a name="python"></a>
 
-<h4>CNNs in Python</h4>
+<h3>CNNs in Python</h3>
 
 
 
