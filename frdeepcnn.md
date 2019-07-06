@@ -24,14 +24,14 @@ The typical layers you will find in a convolutional neural network are:
 **Activation Layer** The purpose of the activation layer is to introduce *non-linearity* into the network. The most popular activation layer function is the ReLU (rectified linear unit), which applies a thresholding function <code>max(0,x)</code>, where <code>x</code> is the output from the convolutional layer. Convolutional layers are always followed by activation layers.
 
 <div class="fig figcenter fighighlight">
-  <img width="300" height="200" src="/images/neuralnet.png">
+  <img width="300" height="200" src="/images/relu.png">
   <div class="figcaption">ReLU activation function</div>
 </div>
 
 **Pooling Layer** Pooling layers reduce the volume of hyper-parameters in the CNN by downsampling the data at various stages in the network. Typical examples include the max-pooling layer, which selects the maximum-valued output within a user-defined area, or the average-pooling layer, which takes the averge over a user-defined area. 
 
 <div class="fig figcenter fighighlight">
-  <img width="600" height="300" src="/images/neuralnet.png">
+  <img width="600" height="300" src="/images/maxpool.png">
   <div class="figcaption">Max Pooling</div>
 </div>
 
