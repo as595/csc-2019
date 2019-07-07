@@ -12,6 +12,7 @@ permalink: /frdeepcnn/
   - [Defining the architecture](#arch)
   - [Loading the Dataset](#data)
   - [Training the CNN](#training)
+- [Further Reading](#reading)
   
   
 <a name="cnns"></a>
@@ -340,3 +341,9 @@ for i in range(len(classes)):
 <font face="courier new">Accuracy of   FRI : 86 %</font>
   
 <font face="courier new">Accuracy of  FRII : 75 %</font>
+
+<a name='reading'></a>
+
+<h4>Reading Material</h4>
+
+This is a very brief explanation of convolutional neural networks. For a longer and more detailed description the notes for the [cs241n lecture course are excellent](http://cs231n.github.io).
