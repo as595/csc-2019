@@ -157,6 +157,13 @@ class Net(nn.Module):
         return x
 ```
 
+Let's look at what we've got in this architecture. The order of the layers is defined in the <code>forward</code> function, which is the forward pass through the network. Basically it goes: CONV-RELU-POOL CONV-RELU-POOL FC-RELU FC-RELU and then the final FC-layer is the output layer. 
+
+<div class="fig figcenter fighighlight">
+  <img width="700" height="400" src="/images/net.png">
+  <div class="figcaption"></div>
+</div>
+
 If we call the class, we can then visualise a summary of the different layers in the network:
 
 ```python
