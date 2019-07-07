@@ -289,25 +289,7 @@ for epoch in range(nepoch):  # loop over the dataset multiple times
 print('Finished Training')
 ```
 
-```python
-dataiter = iter(testloader)
-images, labels = dataiter.next()
-```
-
-```python
-# print images
-imshow(torchvision.utils.make_grid(images))
-print('GroundTruth: ', ' '.join('%5s' % classes[labels[j]] for j in range(batch_size_test)))
-```
-
-```python
-outputs = net(images)
-```
-
-```python
-_, predicted = torch.max(outputs, 1)
-print('Predicted: ', ' '.join('%5s' % classes[predicted[j]] for j in range(batch_size_test)))
-```
+We can now *test* the trained machine learning model using the *test dataset*, which we have reserved and haven't used until now.
 
 ```python
 correct = 0
@@ -322,6 +304,9 @@ with torch.no_grad():
 
 print('Accuracy of the network on the 50 test images: %d %%' % (100 * correct / total))
 ```
+
+Accuracy of the network on the 50 test images: 80 %
+
 
 ```python
 class_correct = list(0. for i in range(10))
@@ -343,3 +328,6 @@ with torch.no_grad():
 for i in range(len(classes)):
     print('Accuracy of %5s : %2d %%' % (classes[i], 100 * class_correct[i] / class_total[i]))
 ```
+
+Accuracy of   FRI : 86 %
+Accuracy of  FRII : 75 %
