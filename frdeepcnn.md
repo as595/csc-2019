@@ -236,7 +236,7 @@ print(' '.join('%5s' % classes[labels[j]] for j in range(batch_size_train)))
 ```
 
 <div class="fig figcenter fighighlight">
-  <img width="650" height="300" src="/images/frexamples.png">
+  <img width="600" height="300" src="/images/frexamples.png">
   <div class="figcaption"></div>
 </div>
 
@@ -244,6 +244,7 @@ print(' '.join('%5s' % classes[labels[j]] for j in range(batch_size_train)))
 <a name="training"></a>
 <h4>Train the CNN</h4>
 
+To train the CNN we need to define (1) our choice of loss function, and (2) our choice of optimisation algorithm. As previously mentioned, one of the most popular loss functions is the *Cross Entropy Loss*. A perfect classifier would have zero cross entropy loss. Statistically, minimising the cross-entropy is equivalent to maximising the likelihood.
 
 ```python
 criterion = nn.CrossEntropyLoss()
