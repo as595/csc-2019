@@ -51,17 +51,18 @@ The typical layers you will find in a convolutional neural network are:
   <div class="figcaption">Max Pooling</div>
 </div>
 
+**Fully Connected Layer** Fully-connected layers have a pre-defined number of neurons, which are connected to all the outputs from the previous layer. These layers operate like a normal neural network.
 
-**Fully Connected Layer** 
+**Output Layer** The output layer is a fully-connected layer that has the same size as the number of target classes. 
 
-**Output Layer**
 
-The architecture of a CNN refers to the order in whcih these layers are arranged and the dimensionality of each layer. All of the layers apart from the input and output layers are referred to as *hidden layers*. They're not really hidden if you're the one building the CNN in the first place, but if you're a user who just wants to classify an image all you'll see are the input and output - the rest is hidden from you, hence the name.
+The architecture of a CNN refers to the order in which these layers are arranged and the dimensionality of each layer. All of the layers apart from the input and output layers are referred to as *hidden layers*. They're not really hidden if you're the one building the CNN in the first place, but if you're a user who just wants to classify an image all you'll see are the input and output - the rest is hidden from you, hence the name.
 
 <a name="backprop"></a>
 
 <h4>Back-propagation</h4>
 
+Back-propagation is a recursive application of the the chain-rule that allows us to calculate the gradient at each point in a neural network in order to update the parameters of the network (i.e. the weights) and optimize a defined loss function. Both the loss function itself and the optimization algorithm are typically defined by the user.
 
 <a name="layers"></a>
 
