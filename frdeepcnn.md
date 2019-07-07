@@ -94,6 +94,13 @@ The other thing that's nice about using inherited architectures is that there ar
 
 There are a variety of different ways to construct CNNs in Python. Popular options include the tensorflow library, the keras library and the PyTorch library. Here I'm going to use PyTorch, whcih I find to be the most straightforward and intuitive option for constructing networks. 
 
+In this toy example, I'm going to use data from the VLA radio telescope to train a CNN to identify a radio galaxy (active galactic nucleus, or AGN) as *Fanaroff-Riley Type I* or *Fanaroff-Riley Type II*, which is a morphological classification that astronomers typically do by eye.
+
+<div class="fig figcenter fighighlight">
+  <img width="300" height="200" src="/images/morphology.png">
+  <div class="figcaption">Fanaroff-Riley Classification</div>
+</div>
+
 To start with, let's import some standard libraries. We'll use these later.
 
 ```python
