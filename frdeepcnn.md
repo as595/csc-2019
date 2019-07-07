@@ -246,10 +246,19 @@ print(' '.join('%5s' % classes[labels[j]] for j in range(batch_size_train)))
 
 To train the CNN we need to define (1) our choice of loss function, and (2) our choice of optimisation algorithm. As previously mentioned, one of the most popular loss functions is the *Cross Entropy Loss*. A perfect classifier would have zero cross entropy loss. Statistically, minimising the cross-entropy is equivalent to maximising the likelihood.
 
+The Adagrad optimizer is [a variant of stochastic gradient descent](http://ruder.io/optimizing-gradient-descent/index.html#adagrad). Its major improvement over standard SGD is that it is able to vary the *learning rate* on a parameter by parameter basis. The learning rate ("lr") that is passed to the PyTorch Adagrad library function is an initial guess at the average learning rate.
+
 ```python
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adagrad(net.parameters(), lr=0.01)
 ```
+
+Now all of these things are defined we can train the CNN. To do this we loop over the dataset multiple times, each time using the previous loop's optimized parameters as the new starting point. The process is simple: 
+
+* pass a batch of data through the network to obtain a predicted output, 
+* evaluate the loss criterion based on that output and the known true labels for the batch,
+* use back-propagation to propagate that loss backwards through the network,
+* update the parameters.
 
 ```python
 nepoch = 10  # number of epochs
