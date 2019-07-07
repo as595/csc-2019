@@ -160,7 +160,7 @@ class Net(nn.Module):
 Let's look at what we've got in this architecture. The order of the layers is defined in the <code>forward</code> function, which is the forward pass through the network. Basically it goes: CONV-RELU-POOL CONV-RELU-POOL FC-RELU FC-RELU and then the final FC-layer is the output layer. 
 
 <div class="fig figcenter fighighlight">
-  <img width="750" height="300" src="/images/net.png">
+  <img width="800" height="280" src="/images/net.png">
   <div class="figcaption"></div>
 </div>
 
@@ -176,23 +176,27 @@ summary(net,(1,150,150))
   <div class="figcaption"></div>
 </div>
 
+Now we've defined the network architecture we can think about the data we want to use. The PyTorch library requires the images to be in tensor format, so when we read in the FRDEEPF dataset we need to transform the data from PIL image format into tensor format. The other thing we're going to do is to normalise each image. Here I'm normalising the distribution of pixel amplitudes in each image to have a mean of 0.5 and a variance of 0.5. These transformations will be applied to every image that we import into our network.
+
 ```python
 transform = transforms.Compose(
-    [transforms.ToTensor(),
-     transforms.Normalize([0.5],[0.5])])
+                              [transforms.ToTensor(),
+                              transforms.Normalize([0.5],[0.5])])
 ```
+
+Now let's define where those images are. To do this I'm using the [FRDEEPF Python class](https://hongmingtang060313.github.io/FR-DEEP/), which automatically downloads the dataset if it's not already available and imports it in a format compatible with the PyTorch library functions. The dataset is already batched into *train* and *test* subsets:
 
 ```python
 trainset = FRDEEPF(root='./FIRST_data', train=True, download=True, transform=transform)  
-batch_size_train = 2
-trainloader = torch.utils.data.DataLoader(trainset, batch_size=batch_size_train, shuffle=True, num_workers=2)
+trainloader = torch.utils.data.DataLoader(trainset, batch_size=2, shuffle=True, num_workers=2)
 ```
 
 ```python
 testset = FRDEEPF(root='./FIRST_data', train=False, download=True, transform=transform) 
-batch_size_test = 2
-testloader = torch.utils.data.DataLoader(testset, batch_size=batch_size_test, shuffle=True, num_workers=2)
+testloader = torch.utils.data.DataLoader(testset, batch_size=2, shuffle=True, num_workers=2)
 ```
+
+The target classes in the dataset are labelled numerically, but we can assign names to each of those numerical labels:
 
 ```python
 classes = ('FRI', 'FRII')
