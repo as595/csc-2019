@@ -312,7 +312,7 @@ with torch.no_grad():
 print('Accuracy of the network on the 50 test images: %d %%' % (100 * correct / total))
 ```
 
-Accuracy of the network on the 50 test images: 80 %
+<font face="courier new"> Accuracy of the network on the 50 test images: 80 % </font>
 
 
 ```python
@@ -336,5 +336,6 @@ for i in range(len(classes)):
     print('Accuracy of %5s : %2d %%' % (classes[i], 100 * class_correct[i] / class_total[i]))
 ```
 
-Accuracy of   FRI : 86 %
-Accuracy of  FRII : 75 %
+<font face="courier new">Accuracy of   FRI : 86 %</font>
+  
+<font face="courier new">Accuracy of  FRII : 75 %</font>
