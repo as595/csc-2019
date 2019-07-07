@@ -162,7 +162,7 @@ class Net(nn.Module):
 Let's look at what we've got in this architecture. The order of the layers is defined in the <code>forward</code> function, which is the forward pass through the network. Basically it goes: CONV-RELU-POOL CONV-RELU-POOL FC-RELU FC-RELU and then the final FC-layer is the output layer. 
 
 <div class="fig figcenter fighighlight">
-  <img width="800" height="280" src="/images/net.png">
+  <img width="800" height="250" src="/images/net.png">
   <div class="figcaption"></div>
 </div>
 
@@ -236,7 +236,7 @@ print(' '.join('%5s' % classes[labels[j]] for j in range(batch_size_train)))
 ```
 
 <div class="fig figcenter fighighlight">
-  <img width="450" height="400" src="/images/frexamples.png">
+  <img width="650" height="300" src="/images/frexamples.png">
   <div class="figcaption"></div>
 </div>
 
