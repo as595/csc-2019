@@ -10,6 +10,8 @@ permalink: /frdeepcnn/
   - [LeNET/AlexNET/ResNet etc.](#lenet)
 - [CNNs in Python](#python)
   - [Defining the architecture](#arch)
+  - [Loading the Dataset](#data)
+  - [Training the CNN](#training)
   
   
 <a name="cnns"></a>
@@ -176,12 +178,15 @@ summary(net,(1,150,150))
   <div class="figcaption"></div>
 </div>
 
+<a name="data"></a>
+<h4>Load the Data</h4>
+
+
 Now we've defined the network architecture we can think about the data we want to use. The PyTorch library requires the images to be in tensor format, so when we read in the FRDEEPF dataset we need to transform the data from PIL image format into tensor format. The other thing we're going to do is to normalise each image. Here I'm normalising the distribution of pixel amplitudes in each image to have a mean of 0.5 and a variance of 0.5. These transformations will be applied to every image that we import into our network.
 
 ```python
-transform = transforms.Compose(
-                              [transforms.ToTensor(),
-                              transforms.Normalize([0.5],[0.5])])
+transform = transforms.Compose([transforms.ToTensor(),
+                                transforms.Normalize([0.5],[0.5])])
 ```
 
 Now let's define where those images are. To do this I'm using the [FRDEEPF Python class](https://hongmingtang060313.github.io/FR-DEEP/), which automatically downloads the dataset if it's not already available and imports it in a format compatible with the PyTorch library functions. The dataset is already batched into *train* and *test* subsets:
@@ -202,6 +207,8 @@ The target classes in the dataset are labelled numerically, but we can assign na
 classes = ('FRI', 'FRII')
 ```
 
+We're going to take a look at a *batch* of images from the dataset. To display them we'll need a special function because the data are normalised (see the transforms above) and they are in tensor format, so we need to undo that:
+
 ```python
 def imshow(img):
     # unnormalize
@@ -211,11 +218,15 @@ def imshow(img):
     plt.show()
 ```
 
+Now let's grab the example data, so we take the next iteration of the training dataset using the PyTorch data loader: 
+
 ```python
 # get some random training images
 dataiter = iter(trainloader)
 images, labels = dataiter.next()
 ```
+
+...and display it:
 
 ```python
 # show images
@@ -223,6 +234,15 @@ imshow(torchvision.utils.make_grid(images))
 # print labels
 print(' '.join('%5s' % classes[labels[j]] for j in range(batch_size_train)))
 ```
+
+<div class="fig figcenter fighighlight">
+  <img width="450" height="400" src="/images/frexamples.png">
+  <div class="figcaption"></div>
+</div>
+
+
+<a name="training"></a>
+<h4>Train the CNN</h4>
 
 
 ```python
