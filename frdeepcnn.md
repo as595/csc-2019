@@ -165,7 +165,7 @@ summary(net,(1,150,150))
 ```
 
 <div class="fig figcenter fighighlight">
-  <img width="400" height="400" src="/images/netsummary.png">
+  <img width="450" height="400" src="/images/netsummary.png">
   <div class="figcaption"></div>
 </div>
 
