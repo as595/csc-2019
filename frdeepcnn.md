@@ -69,11 +69,15 @@ So now you know what each layer does, how do you decide what order to place them
 
 So what's out there?
 
-•    **LeNet** Named after Yann LeCunn who developed the first successful applications of Convolutional Networks in  the 1990’s.
-•    **AlexNet** Not very different to LeNet, but the first CNN to stack multiple convolutional layers before adding a pooling layer.
-•    **GoogLeNet** Includes the *Inception Module* that dramatically reduced the number of parameters in the network (4M, compared to AlexNet with 60M). Uses average-pooling layers instead of fully-connected layers.
-•    **VGGNet** Showed that the depth of the network is a critical component for good performance. An extremely homogeneous architecture that only performs 3x3 convolutions and 2x2 pooling from the beginning to the end.
-•    **ResNet** This architecture introduced *skip connections* and used *batch normalization* after the activation layers. Like GoogLeNet, ResNet removes the fully-connected layers. ResNets are currently the default best option CNN, although opinions are divided on the efficacy of batch normalization.
+**LeNet** Named after Yann LeCunn who developed the first successful applications of Convolutional Networks in  the 1990’s.
+
+**AlexNet** Not very different to LeNet, but the first CNN to stack multiple convolutional layers before adding a pooling layer.
+
+**GoogLeNet** Includes the *Inception Module* that dramatically reduced the number of parameters in the network (4M, compared to AlexNet with 60M). Uses average-pooling layers instead of fully-connected layers.
+
+**VGGNet** Showed that the depth of the network is a critical component for good performance. An extremely homogeneous architecture that only performs 3x3 convolutions and 2x2 pooling from the beginning to the end.
+
+**ResNet** This architecture introduced *skip connections* and used *batch normalization* after the activation layers. Like GoogLeNet, ResNet removes the fully-connected layers. ResNets are currently the default best option CNN, although opinions are divided on the efficacy of batch normalization.
 
 If you want to know how to use one of these pre-defined architectures see the network definition in the [Python example below](#definition).
 
