@@ -157,11 +157,17 @@ class Net(nn.Module):
         return x
 ```
 
+If we call the class, we can then visualise a summary of the different layers in the network:
+
 ```python
 net = Net()
 summary(net,(1,150,150))
 ```
 
+<div class="fig figcenter fighighlight">
+  <img width="400" height="400" src="/images/netsummary.png">
+  <div class="figcaption"></div>
+</div>
 
 ```python
 transform = transforms.Compose(
