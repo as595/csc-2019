@@ -12,6 +12,7 @@ permalink: /frdeepcnn/
   - [Defining the architecture](#arch)
   - [Loading the Dataset](#data)
   - [Training the CNN](#training)
+- [Further Reading](#reading)
   
   
 <a name="cnns"></a>
@@ -51,17 +52,18 @@ The typical layers you will find in a convolutional neural network are:
   <div class="figcaption">Max Pooling</div>
 </div>
 
+**Fully Connected Layer** Fully-connected layers have a pre-defined number of neurons, which are connected to all the outputs from the previous layer. These layers operate like a normal neural network.
 
-**Fully Connected Layer** 
+**Output Layer** The output layer is a fully-connected layer that has the same size as the number of target classes. 
 
-**Output Layer**
 
-The architecture of a CNN refers to the order in whcih these layers are arranged and the dimensionality of each layer. All of the layers apart from the input and output layers are referred to as *hidden layers*. They're not really hidden if you're the one building the CNN in the first place, but if you're a user who just wants to classify an image all you'll see are the input and output - the rest is hidden from you, hence the name.
+The architecture of a CNN refers to the order in which these layers are arranged and the dimensionality of each layer. All of the layers apart from the input and output layers are referred to as *hidden layers*. They're not really hidden if you're the one building the CNN in the first place, but if you're a user who just wants to classify an image all you'll see are the input and output - the rest is hidden from you, hence the name.
 
 <a name="backprop"></a>
 
 <h4>Back-propagation</h4>
 
+Back-propagation is a recursive application of the the chain-rule that allows us to calculate the gradient at each point in a neural network in order to update the parameters of the network (i.e. the weights) and optimize a defined loss function. Both the loss function itself and the optimization algorithm are typically defined by the user.
 
 <a name="layers"></a>
 
@@ -93,6 +95,13 @@ The other thing that's nice about using inherited architectures is that there ar
 <h3>CNNs in Python</h3>
 
 There are a variety of different ways to construct CNNs in Python. Popular options include the tensorflow library, the keras library and the PyTorch library. Here I'm going to use PyTorch, whcih I find to be the most straightforward and intuitive option for constructing networks. 
+
+In this toy example, I'm going to use data from the VLA radio telescope to train a CNN to identify a radio galaxy (active galactic nucleus, or AGN) as *Fanaroff-Riley Type I* or *Fanaroff-Riley Type II*, which is a morphological classification that astronomers typically do by eye.
+
+<div class="fig figcenter fighighlight">
+  <img width="300" height="200" src="/images/morphology.png">
+  <div class="figcaption">Fanaroff-Riley Classification</div>
+</div>
 
 To start with, let's import some standard libraries. We'll use these later.
 
@@ -162,7 +171,7 @@ class Net(nn.Module):
 Let's look at what we've got in this architecture. The order of the layers is defined in the <code>forward</code> function, which is the forward pass through the network. Basically it goes: CONV-RELU-POOL CONV-RELU-POOL FC-RELU FC-RELU and then the final FC-layer is the output layer. 
 
 <div class="fig figcenter fighighlight">
-  <img width="800" height="250" src="/images/net.png">
+  <img width="800" height="200" src="/images/net.png">
   <div class="figcaption"></div>
 </div>
 
@@ -305,7 +314,7 @@ with torch.no_grad():
 print('Accuracy of the network on the 50 test images: %d %%' % (100 * correct / total))
 ```
 
-Accuracy of the network on the 50 test images: 80 %
+<font face="courier new"> Accuracy of the network on the 50 test images: 80 % </font>
 
 
 ```python
@@ -329,5 +338,12 @@ for i in range(len(classes)):
     print('Accuracy of %5s : %2d %%' % (classes[i], 100 * class_correct[i] / class_total[i]))
 ```
 
-Accuracy of   FRI : 86 %
-Accuracy of  FRII : 75 %
+<font face="courier new">Accuracy of   FRI : 86 %</font>
+  
+<font face="courier new">Accuracy of  FRII : 75 %</font>
+
+<a name='reading'></a>
+
+<h4>Reading Material</h4>
+
+This is a very brief explanation of convolutional neural networks. For a longer and more detailed description the notes for the [cs241n lecture course are excellent](http://cs231n.github.io).
