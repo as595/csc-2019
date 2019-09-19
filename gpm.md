@@ -468,9 +468,9 @@ k(x_i,x_j) = h^2 \exp{ \left( \frac{-(x_i - x_j)^2}{\lambda^2} \right)} + \sigma
 $</p>
 
 ```python
-# noise kernel: includes correlated noise & uncorrelated noise
+# noise kernel: includes correlated noise 
 # h = 0.18; lambda = 1.6; sigma = 0.19
-k4 = 0.18**2 * kernels.ExpSquaredKernel(1.6**2) + kernels.WhiteKernel(0.19)
+k4 = 0.18**2 * kernels.ExpSquaredKernel(1.6**2)
 ```
 
 Let’s put all these components together to make our final combined kernel:
@@ -482,7 +482,8 @@ kernel = k1 + k2 + k3 + k4
 Now we need to feed our combined kernel to the <code>george</code> library:
 
 ```python
-gp = george.GP(kernel, mean=0.0)
+# Create an instance of the Gaussian process. Here I'm including uncorrelated (i.e. white) noise. I've given it an initial standard deviation of 0.19 ppm, but by setting fit_white_noise=True I'm making it an optimizable hyper-parameter.
+gp = george.GP(kernel, mean=0.0, fit_mean=False, white_noise=np.log(0.19**2), fit_white_noise=True)
 ```
 
 Then we compute the covariance matrix:
