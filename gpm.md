@@ -505,8 +505,8 @@ We can now predict the <strong>posterior mean and variance</strong> at all our t
 x = np.linspace(max(t_to_2003), 2025, 2000)
 
 # calculate expectation and variance at each point:
-mu, cov = gp.predict(y_to_2003, x)
-std = np.sqrt(np.diag(cov))
+mu, cov = gp.predict(y_to_2003, x, return_var=True)
+std = np.sqrt(cov)
 ```
 
 So how does it look?
@@ -603,8 +603,8 @@ Re-run the prediction with the updated parameters:
 x = np.linspace(max(t_to_2003), 2025, 2000)
 
 # calculate expectation and variance at each point:
-mu, cov = gp.predict(y_to_2003, x)
-std = np.sqrt(np.diag(cov))
+mu, cov = gp.predict(y_to_2003, x, return_var=True)
+std = np.sqrt(cov)
 ```
 
 And see what we get:
