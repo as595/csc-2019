@@ -479,10 +479,10 @@ Let’s put all these components together to make our final combined kernel:
 kernel = k1 + k2 + k3 + k4
 ```
 
-Now we need to feed our combined kernel to the <code>george</code> library:
+Now we need to feed our combined kernel to the <code>george</code> library. Here I'm including uncorrelated (i.e. white) noise. I've given it an initial standard deviation of 0.19 ppm, but by setting <code>fit_white_noise=True</code> I'm making it an optimizable hyper-parameter.
 
 ```python
-# Create an instance of the Gaussian process. Here I'm including uncorrelated (i.e. white) noise. I've given it an initial standard deviation of 0.19 ppm, but by setting fit_white_noise=True I'm making it an optimizable hyper-parameter.
+# Create an instance of the Gaussian process:
 gp = george.GP(kernel, mean=0.0, fit_mean=False, white_noise=np.log(0.19**2), fit_white_noise=True)
 ```
 
