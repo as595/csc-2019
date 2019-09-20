@@ -1,4 +1,3 @@
-
 ---
 layout: page
 permalink: /hint1/
