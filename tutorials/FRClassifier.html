@@ -13418,7 +13418,7 @@ Estimated Total Size (MB): 10.55
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">trainset</span> <span class="o">=</span> <span class="n">FRDEEPF</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="s1">&#39;./FIRST_data&#39;</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">transform</span><span class="p">)</span>  
-<span class="n">trainloader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">trainset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">num_workers</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">trainloader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">trainset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">bsize</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">num_workers</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="n">testset</span> <span class="o">=</span> <span class="n">FRDEEPF</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="s1">&#39;./FIRST_data&#39;</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">transform</span><span class="p">)</span> 
 <span class="n">testloader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">testset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">num_workers</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
@@ -13452,7 +13452,7 @@ Files already downloaded and verified
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <hr>
-<p><strong>Exercise 1:</strong> Can you add in a dataloader for a <em>validation</em> dataset?</p>
+<p><strong>Exercise 1:</strong> Can you add in a dataloader for a <em>validation</em> dataset? <a href="https://as595.github.io/hint1/">Hint</a></p>
 <hr>
 
 </div>
@@ -13508,7 +13508,7 @@ Files already downloaded and verified
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We'll pull one iteration of our data out of the dataset. The <em>batch size</em> is set to 2, so this should return two images and their labels:</p>
+<p>We'll pull one iteration of our data out of the dataset. The <em>batch size</em> is set to 8, so this should return two images and their labels:</p>
 
 </div>
 </div>
@@ -13714,7 +13714,7 @@ Files already downloaded and verified
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <hr>
-<p><strong>Exercise 2:</strong> Can you amend the code to print out the validation loss after each epoch?</p>
+<p><strong>Exercise 2:</strong> Can you amend the code to print out the validation loss after each epoch? <a href="https://as595.github.io/hint2/">Hint</a></p>
 <hr>
 
 </div>
