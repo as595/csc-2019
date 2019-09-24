@@ -1,11 +1,11 @@
 # Site settings
 title: "CSC2019 - Introduction to Machine Learning"
-email: informationcake.com
+email: anna.scaife@manchester.ac.uk
 description: "CERN School of Computing 2019: Introduction to Machine Learning."
 baseurl: ""
 url: "http://as595.github.io"
-twitter_username: alexowenclarke
-github_username:  informationcake
+twitter_username: radastrat
+github_username:  as595
 
 # Build settings
 markdown: kramdown
